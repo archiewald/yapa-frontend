@@ -1,26 +1,25 @@
 // https://web.dev/badging-api/#supporting
 
-// TODO: ty już wiesz co hultaju ( ͡° ͜ʖ ͡°)
-const anyNavigator = navigator as any;
-const anyWindow = window as any;
+declare const navigator: any;
+declare const window: any;
 
 export function setBadge(value?: number) {
-  if (anyNavigator.setExperimentalAppBadge) {
-    anyNavigator.setExperimentalAppBadge(value);
+  if (navigator.setExperimentalAppBadge) {
+    navigator.setExperimentalAppBadge(value);
     return;
   }
 
-  if (anyWindow.setAppBadge) {
-    anyWindow.setAppBadge(value);
+  if (window.setAppBadge) {
+    window.setAppBadge(value);
   }
 }
 
 export function clearBadge() {
-  if (anyNavigator.clearExperimentalAppBadge) {
-    anyNavigator.clearExperimentalAppBadge();
+  if (navigator.clearExperimentalAppBadge) {
+    navigator.clearExperimentalAppBadge();
   }
 
-  if (anyWindow.clearAppBadge) {
-    anyWindow.clearAppBadge();
+  if (window.clearAppBadge) {
+    window.clearAppBadge();
   }
 }

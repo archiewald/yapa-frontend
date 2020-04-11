@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import * as serviceWorker from "./serviceWorker";
-import { StoreContext } from "storeon/react";
 import { store } from "./store";
+
+import * as serviceWorker from "./serviceWorker";
+import "./styles/index.scss";
+import { StoreContext } from "storeon/react";
 import { App } from "./App";
 
 ReactDOM.render(

@@ -8,7 +8,7 @@ import { askPermission, showNotification } from "notifications";
 export const Dashboard: React.FC = () => {
   const {
     timer: { counter },
-    dispatch
+    dispatch,
   } = useStoreon<AppState, AppEvents>("timer");
 
   return (

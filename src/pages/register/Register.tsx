@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { api } from "api";
+import { AppPage } from "ui/AppPage";
 
 export const Register: React.FC = () => {
   const [registerSuccess, setRegisterSuccess] = useState(false);
 
   return (
-    <div>
+    <AppPage>
       <Formik
         initialValues={{
           email: "",
@@ -31,6 +32,6 @@ export const Register: React.FC = () => {
       {registerSuccess && (
         <p>Check your email to confirm registration process</p>
       )}
-    </div>
+    </AppPage>
   );
 };

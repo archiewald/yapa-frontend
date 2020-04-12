@@ -4,6 +4,7 @@ import { useStoreon } from "storeon/react";
 import { AppState, AppEvents } from "store";
 import { renderTimeString } from "utils/timeUtils";
 import { askPermission, showNotification } from "notifications";
+import { AppPage } from "ui/AppPage";
 
 export const Dashboard: React.FC = () => {
   const {
@@ -12,7 +13,7 @@ export const Dashboard: React.FC = () => {
   } = useStoreon<AppState, AppEvents>("timer");
 
   return (
-    <div>
+    <AppPage>
       <button
         onClick={() => {
           dispatch("timerSetMode", "pomodoro");
@@ -83,6 +84,6 @@ export const Dashboard: React.FC = () => {
       >
         test notification
       </button>
-    </div>
+    </AppPage>
   );
 };

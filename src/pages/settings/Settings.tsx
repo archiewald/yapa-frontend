@@ -1,3 +1,4 @@
 import React from "react";
+import { AppPage } from "ui/AppPage";
 
-export const Settings: React.FC = () => <div>HELLO SETTINGS</div>;
+export const Settings: React.FC = () => <AppPage>HELLO SETTINGS</AppPage>;

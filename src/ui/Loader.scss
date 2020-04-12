@@ -1,0 +1,36 @@
+@import "~styles/colors";
+@import "~styles/consts";
+
+%common {
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+}
+
+.Loader {
+  @extend %common;
+
+  position: fixed;
+  width: 100%;
+  z-index: map-get($z-indexes, "loader");
+}
+
+.Loader::before {
+  @extend %common;
+
+  position: absolute;
+  background-color: $white;
+  content: "";
+  animation: expand 1.7s infinite;
+}
+
+@keyframes expand {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}

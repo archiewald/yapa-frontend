@@ -4,7 +4,10 @@ import { setLocale } from "yup";
 setLocale({
   mixed: {
     required: "This is a required field"
+  },
+  string: {
+    email: "Please provide a valid email"
   }
 });
 
-export default Yup;
+export const yup = Yup;

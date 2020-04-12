@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import { setLocale } from "yup";
+import { store } from "store";
 
-import Yup from "yupConfig";
+import { yup } from "yupInstance";
 import { api } from "api";
 import { AppPage } from "ui/AppPage";
 import { TextField } from "ui/form/TextField";
@@ -13,14 +14,16 @@ setLocale({
   }
 });
 
-const RegisterSchema = Yup.object({
-  email: Yup.string()
+const RegisterSchema = yup.object({
+  email: yup
+    .string()
     .email()
     .required(),
-  password: Yup.string().required(),
-  passwordRepeat: Yup.string()
+  password: yup.string().required(),
+  passwordRepeat: yup
+    .string()
     .required()
-    .oneOf([Yup.ref("password")], "Password fields doesn't match")
+    .oneOf([yup.ref("password")], "Password fields doesn't match")
 });
 
 export const RegisterPage: React.FC = () => {
@@ -38,6 +41,7 @@ export const RegisterPage: React.FC = () => {
         }}
         onSubmit={async ({ email, password }) => {
           // TODO: error handling
+          store.dispatch("setIsLoading", true);
           await api.register(email, password);
           setRegisterSuccess(true);
         }}

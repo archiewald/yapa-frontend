@@ -6,7 +6,7 @@ import { renderTimeString } from "utils/timeUtils";
 import { askPermission, showNotification } from "notifications";
 import { AppPage } from "ui/AppPage";
 
-export const Dashboard: React.FC = () => {
+export const DashboardPage: React.FC = () => {
   const {
     timer: { counter },
     dispatch,

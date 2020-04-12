@@ -6,7 +6,7 @@ import { NavigationLink } from "./NavigationLink";
 
 export const NavigationBar: React.FC = () => {
   return (
-    <Navbar bg="light">
+    <Navbar variant="dark" bg="dark">
       <Nav className="mr-auto">
         <ul className="navbar-nav">
           <li className="nav-item">

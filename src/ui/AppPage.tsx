@@ -9,7 +9,7 @@ export const AppPage: React.FC = ({ children }) => {
       <NavigationBar />
       <div className="container mt-5">
         <div className="row justify-content-md-center">
-          <div className="col col-md-9">
+          <div className="col col-md-8">
             <div className="card ">
               <div className="card-body">{children}</div>
             </div>

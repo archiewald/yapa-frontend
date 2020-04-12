@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { api } from "api";
 import { AppPage } from "ui/AppPage";
 
-export const Register: React.FC = () => {
+export const RegisterPage: React.FC = () => {
   const [registerSuccess, setRegisterSuccess] = useState(false);
 
   return (

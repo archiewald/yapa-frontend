@@ -1,6 +1,6 @@
 import React from "react";
 import { useStoreon } from "storeon/react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter, Redirect } from "react-router-dom";
 
 import { DashboardPage } from "pages/dashboard/DashboardPage";
 import { SettingsPage } from "pages/settings/SettingsPage";
@@ -16,6 +16,9 @@ export const App: React.FC = () => {
     <BrowserRouter basename="yapa-frontend">
       {isLoading && <Loader />}
       <Switch>
+        <Route path="/" exact={true}>
+          <Redirect to="/dashboard" />
+        </Route>
         <Route path="/settings">
           <SettingsPage />
         </Route>
@@ -25,7 +28,7 @@ export const App: React.FC = () => {
         <Route path="/login">
           <LoginPage />
         </Route>
-        <Route path="/">
+        <Route path="/dashboard">
           <DashboardPage />
         </Route>
       </Switch>

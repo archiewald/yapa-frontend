@@ -1,4 +1,71 @@
 import React from "react";
-import { AppPage } from "ui/AppPage";
+import { Formik, Form } from "formik";
+import { setLocale } from "yup";
+import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router-dom";
 
-export const LoginPage: React.FC = () => <AppPage>HELLO SETTINGS</AppPage>;
+import { yup } from "yupInstance";
+import { api } from "api";
+import { AppPage } from "ui/AppPage";
+import { TextField } from "ui/form/TextField";
+import { store } from "store";
+
+setLocale({
+  mixed: {
+    required: "This is a required field"
+  }
+});
+
+const LoginSchema = yup.object({
+  email: yup
+    .string()
+    .email()
+    .required(),
+  password: yup.string().required()
+});
+
+export const LoginPage: React.FC = () => {
+  const history = useHistory();
+
+  return (
+    <AppPage>
+      {setAlerts => (
+        <>
+          <h2>Login</h2>
+          <Formik
+            validationSchema={LoginSchema}
+            initialValues={{
+              email: "",
+              password: ""
+            }}
+            onSubmit={async ({ email, password }) => {
+              try {
+                const user = await api.login(email, password);
+                store.dispatch("userSave", user);
+
+                history.push("/dashboard");
+              } catch (error) {
+                setAlerts([
+                  {
+                    message: error.message,
+                    style: "danger"
+                  }
+                ]);
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form noValidate={true}>
+                <TextField type="email" name="email" label="Email" />
+                <TextField type="password" name="password" label="Password" />
+                <Button type="submit" block={true} disabled={isSubmitting}>
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </>
+      )}
+    </AppPage>
+  );
+};

@@ -10,7 +10,10 @@ export const NavigationBar: React.FC = () => {
       <Nav className="mr-auto">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavigationLink to="/">Dashboard</NavigationLink>
+            <NavigationLink to="/dashboard">Dashboard</NavigationLink>
+          </li>
+          <li className="nav-item">
+            <NavigationLink to="/login">Login</NavigationLink>
           </li>
           <li className="nav-item">
             <NavigationLink to="/settings">Settings</NavigationLink>

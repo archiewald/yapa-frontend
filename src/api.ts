@@ -8,5 +8,12 @@ export const api = {
         email,
         password
       })
+    ).data,
+  login: async (email: string, password: string) =>
+    (
+      await axiosInstance.post<User>("/auth/login", {
+        email,
+        password
+      })
     ).data
 };

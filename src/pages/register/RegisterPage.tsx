@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { setLocale } from "yup";
-import { store } from "store";
+import Button from "react-bootstrap/Button";
 
 import { yup } from "yupInstance";
 import { api } from "api";
@@ -43,8 +43,6 @@ export const RegisterPage: React.FC = () => {
               passwordRepeat: ""
             }}
             onSubmit={async ({ email, password }) => {
-              store.dispatch("setIsLoading", true);
-
               try {
                 await api.register(email, password);
                 setAlerts([
@@ -72,9 +70,9 @@ export const RegisterPage: React.FC = () => {
                   name="passwordRepeat"
                   label="Repeat password"
                 />
-                <button type="submit" disabled={isSubmitting}>
+                <Button type="submit" block={true} disabled={isSubmitting}>
                   Submit
-                </button>
+                </Button>
               </Form>
             )}
           </Formik>

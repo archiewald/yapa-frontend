@@ -15,12 +15,12 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
   ...props
 }) => {
   return (
-    <div>
+    <div className="form-group">
       {label && <label htmlFor={props.name}>{label}</label>}
-      <div>
-        <Field {...props} />
-      </div>
-      <ErrorMessage name={props.name} />
+      <Field className="form-control" {...props} />
+      <ErrorMessage name={props.name}>
+        {message => <small className="form-text text-danger">{message}</small>}
+      </ErrorMessage>
     </div>
   );
 };

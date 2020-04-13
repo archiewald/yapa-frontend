@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import { setLocale } from "yup";
 import { store } from "store";
@@ -19,7 +19,10 @@ const RegisterSchema = yup.object({
     .string()
     .email()
     .required(),
-  password: yup.string().required(),
+  password: yup
+    .string()
+    .required()
+    .min(6),
   passwordRepeat: yup
     .string()
     .required()
@@ -27,42 +30,55 @@ const RegisterSchema = yup.object({
 });
 
 export const RegisterPage: React.FC = () => {
-  const [registerSuccess, setRegisterSuccess] = useState(false);
-
   return (
     <AppPage>
-      <h2>Register</h2>
-      <Formik
-        validationSchema={RegisterSchema}
-        initialValues={{
-          email: "",
-          password: "",
-          passwordRepeat: ""
-        }}
-        onSubmit={async ({ email, password }) => {
-          // TODO: error handling
-          store.dispatch("setIsLoading", true);
-          await api.register(email, password);
-          setRegisterSuccess(true);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form noValidate={true}>
-            <TextField type="email" name="email" label="Email" />
-            <TextField type="password" name="password" label="Password" />
-            <TextField
-              type="password"
-              name="passwordRepeat"
-              label="Repeat password"
-            />
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
-      {registerSuccess && (
-        <p>Check your email to confirm registration process</p>
+      {setAlerts => (
+        <>
+          <h2>Register</h2>
+          <Formik
+            validationSchema={RegisterSchema}
+            initialValues={{
+              email: "",
+              password: "",
+              passwordRepeat: ""
+            }}
+            onSubmit={async ({ email, password }) => {
+              store.dispatch("setIsLoading", true);
+
+              try {
+                await api.register(email, password);
+                setAlerts([
+                  {
+                    message: "Check your email to confirm registration process",
+                    style: "success"
+                  }
+                ]);
+              } catch (error) {
+                setAlerts([
+                  {
+                    message: error.message,
+                    style: "danger"
+                  }
+                ]);
+              }
+            }}
+          >
+            {({ isSubmitting }) => (
+              <Form noValidate={true}>
+                <TextField type="email" name="email" label="Email" />
+                <TextField type="password" name="password" label="Password" />
+                <TextField
+                  type="password"
+                  name="passwordRepeat"
+                  label="Repeat password"
+                />
+                <button type="submit" disabled={isSubmitting}>
+                  Submit
+                </button>
+              </Form>
+            )}
+          </Formik>
+        </>
       )}
     </AppPage>
   );

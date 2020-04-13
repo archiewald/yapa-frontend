@@ -6,7 +6,7 @@ export const api = {
     (
       await axiosInstance.post<User>("/auth/register", {
         email,
-        password,
+        password
       })
-    ).data,
+    ).data
 };

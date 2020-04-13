@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { store } from "store";
 
 export const axiosInstance = axios.create({
@@ -27,6 +27,10 @@ axiosInstance.interceptors.response.use(
   },
   error => {
     store.dispatch("setIsLoading", false);
+
+    error.message =
+      (error as AxiosError<{ message: string }>).response?.data?.message ||
+      "Something went wrong";
 
     return Promise.reject(error);
   }

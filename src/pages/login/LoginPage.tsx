@@ -9,6 +9,8 @@ import { api } from "api";
 import { AppPage } from "ui/AppPage";
 import { TextField } from "ui/form/TextField";
 import { store } from "store";
+import { useAlerts } from "utils/useAlerts";
+import { AlertList } from "ui/AlertsList";
 
 setLocale({
   mixed: {
@@ -26,46 +28,44 @@ const LoginSchema = yup.object({
 
 export const LoginPage: React.FC = () => {
   const history = useHistory();
+  const { alerts, setAlerts } = useAlerts();
 
   return (
     <AppPage>
-      {setAlerts => (
-        <>
-          <h2>Login</h2>
-          <Formik
-            validationSchema={LoginSchema}
-            initialValues={{
-              email: "",
-              password: ""
-            }}
-            onSubmit={async ({ email, password }) => {
-              try {
-                const user = await api.login(email, password);
-                store.dispatch("userSave", user);
+      <h2>Login</h2>
+      <AlertList alerts={alerts} />
+      <Formik
+        validationSchema={LoginSchema}
+        initialValues={{
+          email: "",
+          password: ""
+        }}
+        onSubmit={async ({ email, password }) => {
+          try {
+            const user = await api.login(email, password);
+            store.dispatch("userSave", user);
 
-                history.push("/dashboard");
-              } catch (error) {
-                setAlerts([
-                  {
-                    message: error.message,
-                    style: "danger"
-                  }
-                ]);
+            history.push("/dashboard");
+          } catch (error) {
+            setAlerts([
+              {
+                message: error.message,
+                style: "danger"
               }
-            }}
-          >
-            {({ isSubmitting }) => (
-              <Form noValidate={true}>
-                <TextField type="email" name="email" label="Email" />
-                <TextField type="password" name="password" label="Password" />
-                <Button type="submit" block={true} disabled={isSubmitting}>
-                  Submit
-                </Button>
-              </Form>
-            )}
-          </Formik>
-        </>
-      )}
+            ]);
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form noValidate={true}>
+            <TextField type="email" name="email" label="Email" />
+            <TextField type="password" name="password" label="Password" />
+            <Button type="submit" block={true} disabled={isSubmitting}>
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </AppPage>
   );
 };

@@ -6,14 +6,20 @@ export const api = {
     (
       await axiosInstance.post<User>("/auth/register", {
         email,
-        password
+        password,
       })
     ).data,
   login: async (email: string, password: string) =>
     (
       await axiosInstance.post<User>("/auth/login", {
         email,
-        password
+        password,
       })
-    ).data
+    ).data,
+  confirmEmail: async (token: string) =>
+    (
+      await axiosInstance.post<User>("/auth/confirm-email", {
+        token,
+      })
+    ).data,
 };

@@ -7,6 +7,8 @@ import { yup } from "yupInstance";
 import { api } from "api";
 import { AppPage } from "ui/AppPage";
 import { TextField } from "ui/form/TextField";
+import { AlertList } from "ui/AlertsList";
+import { useAlerts } from "utils/useAlerts";
 
 setLocale({
   mixed: {
@@ -30,54 +32,53 @@ const RegisterSchema = yup.object({
 });
 
 export const RegisterPage: React.FC = () => {
+  const { alerts, setAlerts } = useAlerts();
+
   return (
     <AppPage>
-      {setAlerts => (
-        <>
-          <h2>Register</h2>
-          <Formik
-            validationSchema={RegisterSchema}
-            initialValues={{
-              email: "",
-              password: "",
-              passwordRepeat: ""
-            }}
-            onSubmit={async ({ email, password }) => {
-              try {
-                await api.register(email, password);
-                setAlerts([
-                  {
-                    message: "Check your email to confirm registration process",
-                    style: "success"
-                  }
-                ]);
-              } catch (error) {
-                setAlerts([
-                  {
-                    message: error.message,
-                    style: "danger"
-                  }
-                ]);
+      <h2>Register</h2>
+      <AlertList alerts={alerts} />
+      <Formik
+        validationSchema={RegisterSchema}
+        initialValues={{
+          email: "",
+          password: "",
+          passwordRepeat: ""
+        }}
+        onSubmit={async ({ email, password }) => {
+          try {
+            await api.register(email, password);
+            setAlerts([
+              {
+                message: "Check your email to confirm registration process",
+                style: "success"
               }
-            }}
-          >
-            {({ isSubmitting }) => (
-              <Form noValidate={true}>
-                <TextField type="email" name="email" label="Email" />
-                <TextField type="password" name="password" label="Password" />
-                <TextField
-                  type="password"
-                  name="passwordRepeat"
-                  label="Repeat password"
-                />
-                <Button type="submit" block={true} disabled={isSubmitting}>
-                  Submit
-                </Button>
-              </Form>
-            )}
-          </Formik>
-        </>
-      )}
+            ]);
+          } catch (error) {
+            setAlerts([
+              {
+                message: error.message,
+                style: "danger"
+              }
+            ]);
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form noValidate={true}>
+            <TextField type="email" name="email" label="Email" />
+            <TextField type="password" name="password" label="Password" />
+            <TextField
+              type="password"
+              name="passwordRepeat"
+              label="Repeat password"
+            />
+            <Button type="submit" block={true} disabled={isSubmitting}>
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </AppPage>
   );
 };

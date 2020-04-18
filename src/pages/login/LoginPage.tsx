@@ -8,9 +8,10 @@ import { yup } from "yupInstance";
 import { api } from "api";
 import { AppPage } from "ui/AppPage";
 import { TextField } from "ui/form/TextField";
-import { store } from "store";
+import { store, AppState } from "store";
 import { useAlerts } from "utils/useAlerts";
 import { AlertList } from "ui/AlertsList";
+import { useStoreon } from "storeon/react";
 
 setLocale({
   mixed: {
@@ -29,6 +30,7 @@ const LoginSchema = yup.object({
 export const LoginPage: React.FC = () => {
   const history = useHistory();
   const { alerts, setAlerts } = useAlerts();
+  const { userTemp } = useStoreon<AppState>("userTemp");
 
   return (
     <AppPage>
@@ -37,7 +39,7 @@ export const LoginPage: React.FC = () => {
       <Formik
         validationSchema={LoginSchema}
         initialValues={{
-          email: "",
+          email: userTemp?.email || "",
           password: ""
         }}
         onSubmit={async ({ email, password }) => {

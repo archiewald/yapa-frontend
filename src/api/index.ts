@@ -1,4 +1,4 @@
-import { axiosInstance } from "axiosInstance";
+import { axiosInstance } from "api/axiosInstance";
 import { User } from "models/User";
 
 export const api = {
@@ -6,20 +6,20 @@ export const api = {
     (
       await axiosInstance.post<User>("/auth/register", {
         email,
-        password,
+        password
       })
     ).data,
   login: async (email: string, password: string) =>
     (
       await axiosInstance.post<User>("/auth/login", {
         email,
-        password,
+        password
       })
     ).data,
   confirmEmail: async (token: string) =>
     (
       await axiosInstance.post<User>("/auth/confirm-email", {
-        token,
+        token
       })
-    ).data,
+    ).data
 };

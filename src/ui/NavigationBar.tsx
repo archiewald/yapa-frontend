@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import { useStore } from "store/useStore";
 
 import { NavigationLink } from "./NavigationLink";
+import "./NavigationBar.scss";
 
 export interface NavigationItem {
   route: string;
@@ -36,12 +37,11 @@ export const NavigationBar: React.FC = () => {
   const { user } = useStore("user");
 
   return (
-    <Navbar variant="dark" bg="dark">
+    <Navbar variant="dark" bg="dark" className="NavigationBar">
       <Nav className="mr-auto">
         <ul className="navbar-nav">
-          {user
-            ? NAVIGATION_ITEMS_PRIVATE.map(renderNavItem)
-            : NAVIGATION_ITEMS_PUBLIC.map(renderNavItem)}
+          {user && NAVIGATION_ITEMS_PRIVATE.map(renderNavItem)}
+          {user === null && NAVIGATION_ITEMS_PUBLIC.map(renderNavItem)}
         </ul>
       </Nav>
     </Navbar>

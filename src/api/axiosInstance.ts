@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { store } from "store";
 
 export const axiosInstance = axios.create({
+  withCredentials: true,
   baseURL: process.env.REACT_APP_API_URL
 });
 

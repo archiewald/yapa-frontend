@@ -21,5 +21,6 @@ export const api = {
       await axiosInstance.post<User>("/auth/confirm-email", {
         token
       })
-    ).data
+    ).data,
+  getUser: async () => (await axiosInstance.get<User>("/auth/get-user")).data
 };

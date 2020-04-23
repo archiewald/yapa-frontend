@@ -11,5 +11,10 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }) => {
   const { user } = useStore("user");
 
-  return <Route {...props}>{user ? children : <NotFoundPage />}</Route>;
+  return (
+    <Route {...props}>
+      {user && children}
+      {user === null && <NotFoundPage />}
+    </Route>
+  );
 };

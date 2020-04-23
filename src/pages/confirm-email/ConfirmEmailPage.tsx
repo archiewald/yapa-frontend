@@ -1,19 +1,18 @@
 import React from "react";
 import { useEffect } from "react";
-import { useStoreon } from "storeon/react";
+import { useParams, useHistory } from "react-router-dom";
 
 import { AppPage } from "ui/AppPage";
-import { useParams, useHistory } from "react-router-dom";
 import { api } from "api";
-import { AppState, AppEvents } from "store";
 import { useAlerts } from "utils/useAlerts";
 import { AlertList } from "ui/AlertsList";
+import { useStore } from "store/useStore";
 
 export const ConfirmEmailPage: React.FC = () => {
   const { token } = useParams();
   const history = useHistory();
   const { alerts, setAlerts } = useAlerts();
-  const { dispatch } = useStoreon<AppState, AppEvents>();
+  const { dispatch } = useStore();
 
   useEffect(() => {
     async function confirmEmail() {
@@ -32,6 +31,7 @@ export const ConfirmEmailPage: React.FC = () => {
     }
 
     confirmEmail();
+    // TODO: include dependencies?
   }, []);
 
   return (

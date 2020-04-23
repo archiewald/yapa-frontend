@@ -50,7 +50,7 @@ export const NavigationBar: React.FC = () => {
 
 function renderNavItem({ route, name }: NavigationItem) {
   return (
-    <li className="nav-item">
+    <li className="nav-item" key={route}>
       <NavigationLink to={route}>{name}</NavigationLink>
     </li>
   );

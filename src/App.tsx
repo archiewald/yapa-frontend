@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   const { user } = useStore("user");
 
   return (
-    <BrowserRouter basename="yapa-frontend">
+    <BrowserRouter>
       {isLoading && <Loader />}
       <Switch>
         <Route path="/" exact={true}>

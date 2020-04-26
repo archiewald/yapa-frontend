@@ -13,18 +13,12 @@ import { useAlerts } from "utils/useAlerts";
 import { AlertList } from "ui/AlertsList";
 import { useStoreon } from "storeon/react";
 
-setLocale({
-  mixed: {
-    required: "This is a required field"
-  }
-});
-
 const LoginSchema = yup.object({
   email: yup
     .string()
     .email()
     .required(),
-  password: yup.string().required()
+  password: yup.string().required(),
 });
 
 export const LoginPage: React.FC = () => {
@@ -40,7 +34,7 @@ export const LoginPage: React.FC = () => {
         validationSchema={LoginSchema}
         initialValues={{
           email: userTemp?.email || "",
-          password: ""
+          password: "",
         }}
         onSubmit={async ({ email, password }) => {
           try {
@@ -52,8 +46,8 @@ export const LoginPage: React.FC = () => {
             setAlerts([
               {
                 message: error.message,
-                style: "danger"
-              }
+                style: "danger",
+              },
             ]);
           }
         }}
@@ -63,7 +57,11 @@ export const LoginPage: React.FC = () => {
             <TextField type="email" name="email" label="Email" />
             <TextField type="password" name="password" label="Password" />
             <Button type="submit" block={true} disabled={isSubmitting}>
-              Submit
+              Login
+            </Button>
+            <p className="my-2">No account yet?</p>
+            <Button href="/register" variant={"outline-primary"} block={true}>
+              Register
             </Button>
           </Form>
         )}

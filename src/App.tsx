@@ -25,9 +25,6 @@ export const App: React.FC = () => {
           {user ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
         </Route>
 
-        <Route path="/settings">
-          <SettingsPage />
-        </Route>
         <Route path="/register">
           <RegisterPage />
         </Route>
@@ -40,6 +37,9 @@ export const App: React.FC = () => {
 
         <PrivateRoute path="/dashboard">
           <DashboardPage />
+        </PrivateRoute>
+        <PrivateRoute path="/settings">
+          <SettingsPage />
         </PrivateRoute>
 
         <Route>

@@ -1,26 +1,28 @@
 import { axiosInstance } from "api/axiosInstance";
-import { User } from "models/User";
+import { User, UserSettings } from "models/User";
 
 export const api = {
   register: async (email: string, password: string) =>
     (
       await axiosInstance.post<User>("/auth/register", {
         email,
-        password
+        password,
       })
     ).data,
   login: async (email: string, password: string) =>
     (
       await axiosInstance.post<User>("/auth/login", {
         email,
-        password
+        password,
       })
     ).data,
   confirmEmail: async (token: string) =>
     (
       await axiosInstance.post<User>("/auth/confirm-email", {
-        token
+        token,
       })
     ).data,
-  getUser: async () => (await axiosInstance.get<User>("/auth/get-user")).data
+  getUser: async () => (await axiosInstance.get<User>("/user")).data,
+  setUserSettings: async (settings: UserSettings) =>
+    (await axiosInstance.put<User>("/user/settings", settings)).data,
 };

@@ -9,8 +9,8 @@ export type AppEvents = TimerEvents & LoaderEvents & UserEvents;
 export interface AppState extends TimerState, LoaderState, UserState {}
 
 export const store = createStoreon<AppState, AppEvents>([
+  UserModule,
   TimerModule,
   LoaderModule,
-  UserModule,
-  process.env.NODE_ENV !== "production" && storeonDevtools
+  process.env.NODE_ENV !== "production" && storeonDevtools,
 ]);

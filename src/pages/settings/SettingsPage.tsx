@@ -34,27 +34,30 @@ export const SettingsPage: React.FC = () => {
   const { user, dispatch } = useStore("user");
 
   const {
-    settings: { pomodoroTime, longBreakTime, shortBreakTime },
+    settings: {
+      timer: { pomodoro, shortBreak, longBreak },
+    },
   } = user!;
 
   return (
     <AppPage>
-      <h2>Settings</h2>
       <AlertList alerts={alerts} />
+      <h2>Settings</h2>
       <Formik
         validationSchema={SettingsSchema}
         initialValues={{
-          pomodoroTime,
-          shortBreakTime,
-          longBreakTime,
+          pomodoro,
+          shortBreak,
+          longBreak,
         }}
-        onSubmit={async ({ pomodoroTime, shortBreakTime, longBreakTime }) => {
-          debugger;
+        onSubmit={async ({ pomodoro, shortBreak, longBreak }) => {
           try {
             const user = await api.setUserSettings({
-              pomodoroTime,
-              shortBreakTime,
-              longBreakTime,
+              timer: {
+                pomodoro,
+                shortBreak,
+                longBreak,
+              },
             });
 
             dispatch("userSave", user);
@@ -77,21 +80,13 @@ export const SettingsPage: React.FC = () => {
       >
         {({ isSubmitting }) => (
           <Form noValidate={true}>
+            <TextField type="number" name="pomodoro" label="Pomodoro time" />
             <TextField
               type="number"
-              name="pomodoroTime"
-              label="Pomodoro time"
-            />
-            <TextField
-              type="number"
-              name="shortBreakTime"
+              name="shortBreak"
               label="Short break time"
             />
-            <TextField
-              type="number"
-              name="longBreakTime"
-              label="Long break time"
-            />
+            <TextField type="number" name="longBreak" label="Long break time" />
             <Button type="submit" block={true} disabled={isSubmitting}>
               Save
             </Button>

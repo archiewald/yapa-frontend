@@ -4,26 +4,23 @@ import { addMilliseconds, differenceInMilliseconds } from "date-fns";
 import { minutesToMs, msToFullMinutes } from "utils/timeUtils";
 import { showNotification } from "notifications";
 import { setBadge } from "badge";
+import { UserState } from "./user";
+import { User } from "models/User";
 
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
-
-const MODE_TIMES: { [Mode in TimerMode]: number } = {
-  pomodoro: minutesToMs(40),
-  shortBreak: minutesToMs(5),
-  longBreak: minutesToMs(15)
-};
 
 export interface TimerState {
   timer: {
     interval?: NodeJS.Timeout;
     endTime?: Date;
     done: boolean;
-    counter: number;
+    counter?: number;
     mode: TimerMode;
   };
 }
 
 export interface TimerEvents {
+  timerInit: undefined;
   timerStart: undefined;
   timerPause: undefined;
   timerReset: undefined;
@@ -31,14 +28,24 @@ export interface TimerEvents {
   timerSetMode: TimerMode;
 }
 
-export const TimerModule: StoreonModule<TimerState, TimerEvents> = store => {
+export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
+  store
+) => {
   store.on("@init", () => ({
     timer: {
       mode: "pomodoro",
-      counter: MODE_TIMES.pomodoro,
-      done: false
-    }
+      done: false,
+    },
   }));
+
+  store.on("timerInit", ({ user, timer }) => {
+    return {
+      timer: {
+        ...timer,
+        counter: getCounterValue(user!, "pomodoro"),
+      },
+    };
+  });
 
   store.on("timerUpdate", ({ timer }) => {
     const { endTime, mode } = timer;
@@ -56,17 +63,17 @@ export const TimerModule: StoreonModule<TimerState, TimerEvents> = store => {
       timer: {
         ...timer,
         done,
-        counter
-      }
+        counter,
+      },
     };
   });
 
-  store.on("timerStart", ({ timer }) => {
+  store.on("timerStart", ({ timer, user }) => {
     if (timer.interval) return { timer };
 
     const endTime = addMilliseconds(
       new Date(),
-      timer.counter || MODE_TIMES[timer.mode]
+      timer.counter || getCounterValue(user!, timer.mode)
     );
 
     const interval = setInterval(() => {
@@ -77,8 +84,8 @@ export const TimerModule: StoreonModule<TimerState, TimerEvents> = store => {
       timer: {
         ...timer,
         interval,
-        endTime
-      }
+        endTime,
+      },
     };
   });
 
@@ -91,12 +98,12 @@ export const TimerModule: StoreonModule<TimerState, TimerEvents> = store => {
     return {
       timer: {
         ...timer,
-        interval: undefined
-      }
+        interval: undefined,
+      },
     };
   });
 
-  store.on("timerReset", ({ timer }) => {
+  store.on("timerReset", ({ timer, user }) => {
     const { interval } = timer;
 
     if (interval) {
@@ -106,13 +113,13 @@ export const TimerModule: StoreonModule<TimerState, TimerEvents> = store => {
     return {
       timer: {
         ...timer,
-        counter: MODE_TIMES[timer.mode],
-        interval: undefined
-      }
+        counter: getCounterValue(user!, timer.mode),
+        interval: undefined,
+      },
     };
   });
 
-  store.on("timerSetMode", ({ timer }, mode) => {
+  store.on("timerSetMode", ({ timer, user }, mode) => {
     const { interval } = timer;
 
     if (interval) {
@@ -123,9 +130,9 @@ export const TimerModule: StoreonModule<TimerState, TimerEvents> = store => {
       timer: {
         ...timer,
         mode,
-        counter: MODE_TIMES[mode],
-        interval: undefined
-      }
+        counter: getCounterValue(user!, timer.mode),
+        interval: undefined,
+      },
     };
   });
 };
@@ -142,4 +149,12 @@ async function notifyTimerFinished(mode: TimerMode) {
       await showNotification("Long break finished!");
       return;
   }
+}
+
+function getCounterValue(user: User, mode: TimerMode): number {
+  const {
+    settings: { timer: timerSettings },
+  } = user;
+
+  return minutesToMs(timerSettings[mode]);
 }

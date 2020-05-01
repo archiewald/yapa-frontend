@@ -1,16 +1,19 @@
-import React from "react";
-import { useStoreon } from "storeon/react";
+import React, { useEffect } from "react";
 
-import { AppState, AppEvents } from "store";
 import { renderTimeString } from "utils/timeUtils";
 import { askPermission, showNotification } from "notifications";
 import { AppPage } from "ui/AppPage";
+import { useStore } from "store/useStore";
 
 export const DashboardPage: React.FC = () => {
   const {
     timer: { counter },
     dispatch,
-  } = useStoreon<AppState, AppEvents>("timer");
+  } = useStore("timer");
+
+  useEffect(() => {
+    dispatch("timerInit");
+  }, []);
 
   return (
     <AppPage>
@@ -35,7 +38,7 @@ export const DashboardPage: React.FC = () => {
       >
         Long break
       </button>
-      <h1>{renderTimeString(counter)}</h1>
+      <h1>{counter ? renderTimeString(counter) : "Wait for it..."}</h1>
       <button
         onClick={() => {
           dispatch("timerStart");

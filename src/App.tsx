@@ -1,7 +1,5 @@
 import React from "react";
-import { useStoreon } from "storeon/react";
 import { Switch, Route, BrowserRouter, Redirect } from "react-router-dom";
-import { AppState } from "store";
 
 import { DashboardPage } from "pages/dashboard/DashboardPage";
 import { SettingsPage } from "pages/settings/SettingsPage";
@@ -14,7 +12,7 @@ import { PrivateRoute } from "utils/router/PrivateRoute";
 import { useStore } from "store/useStore";
 
 export const App: React.FC = () => {
-  const { isLoading } = useStoreon<AppState>("isLoading");
+  const { isLoading } = useStore("isLoading");
   const { user } = useStore("user");
 
   return (
@@ -22,7 +20,8 @@ export const App: React.FC = () => {
       {isLoading && <Loader />}
       <Switch>
         <Route path="/" exact={true}>
-          {user ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+          {user && <Redirect to="/dashboard" />}
+          {user === null && <Redirect to="/login" />}
         </Route>
 
         <Route path="/register">

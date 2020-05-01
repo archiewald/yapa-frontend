@@ -6,6 +6,7 @@ import { showNotification } from "notifications";
 import { setBadge } from "badge";
 import { UserState } from "./user";
 import { User } from "models/User";
+import { api } from "api";
 
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
 
@@ -13,6 +14,7 @@ export interface TimerState {
   timer: {
     interval?: NodeJS.Timeout;
     endTime?: Date;
+    startTime?: Date;
     done: boolean;
     counter?: number;
     mode: TimerMode;
@@ -26,6 +28,7 @@ export interface TimerEvents {
   timerReset: undefined;
   timerUpdate: undefined;
   timerSetMode: TimerMode;
+  timerSavePomodoro: undefined;
 }
 
 export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
@@ -42,7 +45,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
     return {
       timer: {
         ...timer,
-        counter: getCounterValue(user!, "pomodoro"),
+        counter: getModeDuration(user!, "pomodoro"),
       },
     };
   });
@@ -56,6 +59,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
 
     if (done) {
       notifyTimerFinished(mode);
+      store.dispatch("timerSavePomodoro");
       return store.dispatch("timerReset");
     }
 
@@ -71,9 +75,11 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
   store.on("timerStart", ({ timer, user }) => {
     if (timer.interval) return { timer };
 
+    const now = new Date();
+
     const endTime = addMilliseconds(
-      new Date(),
-      timer.counter || getCounterValue(user!, timer.mode)
+      now,
+      timer.counter || getModeDuration(user!, timer.mode)
     );
 
     const interval = setInterval(() => {
@@ -85,6 +91,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
         ...timer,
         interval,
         endTime,
+        startTime: now,
       },
     };
   });
@@ -113,7 +120,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
     return {
       timer: {
         ...timer,
-        counter: getCounterValue(user!, timer.mode),
+        counter: getModeDuration(user!, timer.mode),
         interval: undefined,
       },
     };
@@ -130,10 +137,17 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
       timer: {
         ...timer,
         mode,
-        counter: getCounterValue(user!, mode),
+        counter: getModeDuration(user!, mode),
         interval: undefined,
       },
     };
+  });
+
+  store.on("timerSavePomodoro", async ({ timer: { startTime }, user }) => {
+    await api.createPomodoro({
+      startDate: startTime!.toISOString(),
+      duration: getModeDuration(user!, "pomodoro"),
+    });
   });
 };
 
@@ -151,7 +165,7 @@ async function notifyTimerFinished(mode: TimerMode) {
   }
 }
 
-function getCounterValue(user: User, mode: TimerMode): number {
+function getModeDuration(user: User, mode: TimerMode): number {
   const {
     settings: { timer: timerSettings },
   } = user;

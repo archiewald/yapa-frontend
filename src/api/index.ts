@@ -1,5 +1,6 @@
 import { axiosInstance } from "api/axiosInstance";
 import { User, UserSettings } from "models/User";
+import { Pomodoro } from "models/Pomodoro";
 
 export const api = {
   register: async (email: string, password: string) =>
@@ -25,4 +26,7 @@ export const api = {
   getUser: async () => (await axiosInstance.get<User>("/user")).data,
   setUserSettings: async (settings: UserSettings) =>
     (await axiosInstance.put<User>("/user/settings", settings)).data,
+  createPomodoro: async (
+    pomodoro: Omit<Pomodoro, "id" | "tags"> & { tags?: Array<string> }
+  ) => await axiosInstance.post<Pomodoro>("/pomodoros", pomodoro),
 };

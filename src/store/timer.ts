@@ -130,7 +130,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
       timer: {
         ...timer,
         mode,
-        counter: getCounterValue(user!, timer.mode),
+        counter: getCounterValue(user!, mode),
         interval: undefined,
       },
     };

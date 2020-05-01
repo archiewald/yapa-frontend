@@ -14,23 +14,27 @@ export interface NavigationItem {
 const NAVIGATION_ITEMS_PUBLIC: NavigationItem[] = [
   {
     route: "/login",
-    name: "Login"
+    name: "Login",
   },
   {
     route: "/register",
-    name: "Register"
-  }
+    name: "Register",
+  },
 ];
 
 const NAVIGATION_ITEMS_PRIVATE: NavigationItem[] = [
   {
     route: "/dashboard",
-    name: "Dashboard"
+    name: "Dashboard",
   },
   {
     route: "/settings",
-    name: "Settings"
-  }
+    name: "Settings",
+  },
+  {
+    route: "/pomodoros",
+    name: "Pomodoros",
+  },
 ];
 
 export const NavigationBar: React.FC = () => {

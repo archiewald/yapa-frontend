@@ -29,4 +29,6 @@ export const api = {
   createPomodoro: async (
     pomodoro: Omit<Pomodoro, "id" | "tags"> & { tags?: Array<string> }
   ) => await axiosInstance.post<Pomodoro>("/pomodoros", pomodoro),
+  getPomodoros: async () =>
+    (await axiosInstance.get<Pomodoro[]>("/pomodoros")).data,
 };

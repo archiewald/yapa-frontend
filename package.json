@@ -1,6 +1,6 @@
 {
   "name": "yapa-frontend",
-  "homepage": "http://yapa-frontend.s3-website.eu-central-1.amazonaws.com/",
+  "homepage": "yapa.kozubek.dev",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

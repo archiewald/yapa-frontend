@@ -8,7 +8,7 @@ import { useStore } from "store/useStore";
 export const DashboardPage: React.FC = () => {
   const {
     timer: { counter },
-    dispatch,
+    dispatch
   } = useStore("timer");
 
   useEffect(() => {

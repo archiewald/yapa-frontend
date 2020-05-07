@@ -31,22 +31,23 @@ export interface TimerEvents {
   timerSavePomodoro: undefined;
 }
 
-export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
-  store
-) => {
+export const TimerModule: StoreonModule<
+  TimerState & UserState,
+  TimerEvents
+> = store => {
   store.on("@init", () => ({
     timer: {
       mode: "pomodoro",
-      done: false,
-    },
+      done: false
+    }
   }));
 
   store.on("timerInit", ({ user, timer }) => {
     return {
       timer: {
         ...timer,
-        counter: getModeDuration(user!, "pomodoro"),
-      },
+        counter: getModeDuration(user!, "pomodoro")
+      }
     };
   });
 
@@ -67,8 +68,8 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
       timer: {
         ...timer,
         done,
-        counter,
-      },
+        counter
+      }
     };
   });
 
@@ -91,8 +92,8 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
         ...timer,
         interval,
         endTime,
-        startTime: now,
-      },
+        startTime: now
+      }
     };
   });
 
@@ -105,8 +106,8 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
     return {
       timer: {
         ...timer,
-        interval: undefined,
-      },
+        interval: undefined
+      }
     };
   });
 
@@ -121,8 +122,8 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
       timer: {
         ...timer,
         counter: getModeDuration(user!, timer.mode),
-        interval: undefined,
-      },
+        interval: undefined
+      }
     };
   });
 
@@ -138,15 +139,15 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
         ...timer,
         mode,
         counter: getModeDuration(user!, mode),
-        interval: undefined,
-      },
+        interval: undefined
+      }
     };
   });
 
   store.on("timerSavePomodoro", async ({ timer: { startTime }, user }) => {
     await api.createPomodoro({
       startDate: startTime!.toISOString(),
-      duration: getModeDuration(user!, "pomodoro"),
+      duration: getModeDuration(user!, "pomodoro")
     });
   });
 };
@@ -167,7 +168,7 @@ async function notifyTimerFinished(mode: TimerMode) {
 
 function getModeDuration(user: User, mode: TimerMode): number {
   const {
-    settings: { timer: timerSettings },
+    settings: { timer: timerSettings }
   } = user;
 
   return minutesToMs(timerSettings[mode]);

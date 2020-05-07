@@ -7,7 +7,7 @@ export interface NavigationLinkProps {
 
 export const NavigationLink: React.FC<NavigationLinkProps> = ({
   to,
-  children,
+  children
 }) => (
   <NavLink exact={true} className="nav-link" activeClassName="active" to={to}>
     {children}

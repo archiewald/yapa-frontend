@@ -26,7 +26,7 @@ const SettingsSchema = yup.object({
     .number()
     .integer()
     .min(0)
-    .required(),
+    .required()
 });
 
 export const SettingsPage: React.FC = () => {
@@ -35,8 +35,8 @@ export const SettingsPage: React.FC = () => {
 
   const {
     settings: {
-      timer: { pomodoro, shortBreak, longBreak },
-    },
+      timer: { pomodoro, shortBreak, longBreak }
+    }
   } = user!;
 
   return (
@@ -48,7 +48,7 @@ export const SettingsPage: React.FC = () => {
         initialValues={{
           pomodoro,
           shortBreak,
-          longBreak,
+          longBreak
         }}
         onSubmit={async ({ pomodoro, shortBreak, longBreak }) => {
           try {
@@ -56,8 +56,8 @@ export const SettingsPage: React.FC = () => {
               timer: {
                 pomodoro,
                 shortBreak,
-                longBreak,
-              },
+                longBreak
+              }
             });
 
             dispatch("userSave", user);
@@ -65,15 +65,15 @@ export const SettingsPage: React.FC = () => {
             setAlerts([
               {
                 message: "Settings saved",
-                style: "success",
-              },
+                style: "success"
+              }
             ]);
           } catch (error) {
             setAlerts([
               {
                 message: error.message,
-                style: "danger",
-              },
+                style: "danger"
+              }
             ]);
           }
         }}

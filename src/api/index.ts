@@ -7,20 +7,20 @@ export const api = {
     (
       await axiosInstance.post<User>("/auth/register", {
         email,
-        password,
+        password
       })
     ).data,
   login: async (email: string, password: string) =>
     (
       await axiosInstance.post<User>("/auth/login", {
         email,
-        password,
+        password
       })
     ).data,
   confirmEmail: async (token: string) =>
     (
       await axiosInstance.post<User>("/auth/confirm-email", {
-        token,
+        token
       })
     ).data,
   getUser: async () => (await axiosInstance.get<User>("/user")).data,
@@ -30,5 +30,5 @@ export const api = {
     pomodoro: Omit<Pomodoro, "id" | "tags"> & { tags?: Array<string> }
   ) => await axiosInstance.post<Pomodoro>("/pomodoros", pomodoro),
   getPomodoros: async () =>
-    (await axiosInstance.get<Pomodoro[]>("/pomodoros")).data,
+    (await axiosInstance.get<Pomodoro[]>("/pomodoros")).data
 };

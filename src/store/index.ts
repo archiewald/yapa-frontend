@@ -12,5 +12,5 @@ export const store = createStoreon<AppState, AppEvents>([
   UserModule,
   TimerModule,
   LoaderModule,
-  process.env.NODE_ENV !== "production" && storeonDevtools,
+  process.env.NODE_ENV !== "production" && storeonDevtools
 ]);

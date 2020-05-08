@@ -26,7 +26,7 @@ const SettingsSchema = yup.object({
     .number()
     .integer()
     .min(0)
-    .required()
+    .required(),
 });
 
 export const SettingsPage: React.FC = () => {
@@ -35,20 +35,24 @@ export const SettingsPage: React.FC = () => {
 
   const {
     settings: {
-      timer: { pomodoro, shortBreak, longBreak }
-    }
+      timer: { pomodoro, shortBreak, longBreak },
+    },
+    email,
   } = user!;
 
   return (
     <AppPage>
       <AlertList alerts={alerts} />
-      <h2>Settings</h2>
+      <h2 className="mb-3">Settings</h2>
+
+      <p>Account email: {email}</p>
+
       <Formik
         validationSchema={SettingsSchema}
         initialValues={{
           pomodoro,
           shortBreak,
-          longBreak
+          longBreak,
         }}
         onSubmit={async ({ pomodoro, shortBreak, longBreak }) => {
           try {
@@ -56,8 +60,8 @@ export const SettingsPage: React.FC = () => {
               timer: {
                 pomodoro,
                 shortBreak,
-                longBreak
-              }
+                longBreak,
+              },
             });
 
             dispatch("userSave", user);
@@ -65,15 +69,15 @@ export const SettingsPage: React.FC = () => {
             setAlerts([
               {
                 message: "Settings saved",
-                style: "success"
-              }
+                style: "success",
+              },
             ]);
           } catch (error) {
             setAlerts([
               {
                 message: error.message,
-                style: "danger"
-              }
+                style: "danger",
+              },
             ]);
           }
         }}

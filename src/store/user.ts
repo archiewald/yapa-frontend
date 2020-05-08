@@ -10,10 +10,11 @@ export interface UserState {
 export interface UserEvents {
   userSave: User | null;
   userGet: undefined;
+  userClear: undefined;
   userSaveTemp: User;
 }
 
-export const UserModule: StoreonModule<UserState, UserEvents> = store => {
+export const UserModule: StoreonModule<UserState, UserEvents> = (store) => {
   store.on("@init", () => {
     store.dispatch("userGet");
   });
@@ -24,11 +25,15 @@ export const UserModule: StoreonModule<UserState, UserEvents> = store => {
     store.dispatch("userSave", user ? user : null);
   });
 
+  store.on("userClear", () => ({
+    user: null,
+  }));
+
   store.on("userSave", (_state, user) => ({
-    user
+    user,
   }));
 
   store.on("userSaveTemp", (_state, userTemp) => ({
-    userTemp
+    userTemp,
   }));
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router-dom";
 
 import { yup } from "yupInstance";
 import { AppPage } from "ui/AppPage";
@@ -32,6 +33,7 @@ const SettingsSchema = yup.object({
 export const SettingsPage: React.FC = () => {
   const { alerts, setAlerts } = useAlerts();
   const { user, dispatch } = useStore("user");
+  const history = useHistory();
 
   const {
     settings: {
@@ -46,6 +48,16 @@ export const SettingsPage: React.FC = () => {
       <h2 className="mb-3">Settings</h2>
 
       <p>Account email: {email}</p>
+      <Button
+        className="mb-4"
+        onClick={async () => {
+          await api.logout();
+          dispatch("userClear");
+          history.push("/");
+        }}
+      >
+        Logout
+      </Button>
 
       <Formik
         validationSchema={SettingsSchema}

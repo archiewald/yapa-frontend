@@ -1,13 +1,10 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
 import { useStore } from "store/useStore";
 
 import { NavigationLink } from "./NavigationLink";
 import "./NavigationBar.scss";
-import { api } from "api";
-import { useHistory } from "react-router-dom";
 
 export interface NavigationItem {
   route: string;
@@ -41,29 +38,13 @@ const NAVIGATION_ITEMS_PRIVATE: NavigationItem[] = [
 ];
 
 export const NavigationBar: React.FC = () => {
-  const { user, dispatch } = useStore("user");
-  const history = useHistory();
+  const { user } = useStore("user");
 
   return (
     <Navbar variant="dark" bg="dark" className="NavigationBar">
       <Nav className="mr-auto">
         <ul className="navbar-nav">
           {user && NAVIGATION_ITEMS_PRIVATE.map(renderNavItem)}
-          {user && (
-            <li className="nav-item">
-              <Button
-                variant="link"
-                className="nav-link"
-                onClick={async () => {
-                  await api.logout();
-                  dispatch("userClear");
-                  history.push("/");
-                }}
-              >
-                Logout
-              </Button>
-            </li>
-          )}
           {user === null && NAVIGATION_ITEMS_PUBLIC.map(renderNavItem)}
         </ul>
       </Nav>

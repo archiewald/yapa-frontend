@@ -36,19 +36,8 @@ const TagSchema = yup.object({
 
 export const SettingsPage: React.FC = () => {
   const { alerts, setAlerts } = useAlerts();
-  const { user, dispatch } = useStore("user");
+  const { user, dispatch, tags } = useStore("user", "tags");
   const history = useHistory();
-
-  const [tags, setTags] = useState<Tag[]>([]);
-
-  useEffect(() => {
-    async function getTags() {
-      setTags(await api.getTags());
-    }
-
-    getTags();
-    // TODO: include dependencies?
-  }, []);
 
   const {
     settings: {
@@ -112,7 +101,7 @@ export const SettingsPage: React.FC = () => {
         }}
       >
         {({ isSubmitting }) => (
-          <Form noValidate={true}>
+          <Form noValidate={true} className="mb-4">
             <div className="row mb-4">
               <div className="col">
                 <TextField type="number" name="pomodoro" label="Pomodoro" />
@@ -134,8 +123,11 @@ export const SettingsPage: React.FC = () => {
           </Form>
         )}
       </Formik>
+
+      <h2 className="mb-3">Tags</h2>
+
       <ul>
-        {tags.map(({ name, id }) => (
+        {tags?.map(({ name, id }) => (
           <li key={id}>{name}</li>
         ))}
       </ul>
@@ -145,27 +137,28 @@ export const SettingsPage: React.FC = () => {
         initialValues={{
           name: "",
         }}
-        onSubmit={async ({ name }) => {
-          try {
-            const tag = await api.createTag({ name });
-
-            setTags((tags) => [...tags, tag]);
-          } catch (error) {
-            setAlerts([
-              {
-                message: error.message,
-                style: "danger",
-              },
-            ]);
-          }
+        onSubmit={async ({ name }, { resetForm }) => {
+          dispatch("tagsCreate", { name });
+          resetForm();
         }}
       >
         {({ isSubmitting }) => (
           <Form noValidate={true}>
-            <TextField name="name" label="Tag name" />
-            <Button type="submit" block={true} disabled={isSubmitting}>
-              Save tag
-            </Button>
+            <div className="row">
+              <div className="col">
+                <label htmlFor="name">New tag name</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col">
+                <TextField name="name" />
+              </div>
+              <div className="col">
+                <Button type="submit" block={true} disabled={isSubmitting}>
+                  Save tag
+                </Button>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>

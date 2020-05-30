@@ -7,6 +7,7 @@ import { setBadge } from "badge";
 import { UserState } from "./user";
 import { User } from "models/User";
 import { api } from "api";
+import { Tag } from "models/Tag";
 
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
 
@@ -18,6 +19,7 @@ export interface TimerState {
     done: boolean;
     counter?: number;
     mode: TimerMode;
+    selectedTagsIds: string[];
   };
 }
 
@@ -29,25 +31,27 @@ export interface TimerEvents {
   timerUpdate: undefined;
   timerSetMode: TimerMode;
   timerSavePomodoro: undefined;
+  timerAddTagId: string;
+  timerRemoveTagId: string;
 }
 
-export const TimerModule: StoreonModule<
-  TimerState & UserState,
-  TimerEvents
-> = store => {
+export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
+  store
+) => {
   store.on("@init", () => ({
     timer: {
       mode: "pomodoro",
-      done: false
-    }
+      done: false,
+      selectedTagsIds: [],
+    },
   }));
 
   store.on("timerInit", ({ user, timer }) => {
     return {
       timer: {
         ...timer,
-        counter: getModeDuration(user!, "pomodoro")
-      }
+        counter: getModeDuration(user!, "pomodoro"),
+      },
     };
   });
 
@@ -68,8 +72,8 @@ export const TimerModule: StoreonModule<
       timer: {
         ...timer,
         done,
-        counter
-      }
+        counter,
+      },
     };
   });
 
@@ -92,8 +96,8 @@ export const TimerModule: StoreonModule<
         ...timer,
         interval,
         endTime,
-        startTime: now
-      }
+        startTime: now,
+      },
     };
   });
 
@@ -106,8 +110,8 @@ export const TimerModule: StoreonModule<
     return {
       timer: {
         ...timer,
-        interval: undefined
-      }
+        interval: undefined,
+      },
     };
   });
 
@@ -122,8 +126,8 @@ export const TimerModule: StoreonModule<
       timer: {
         ...timer,
         counter: getModeDuration(user!, timer.mode),
-        interval: undefined
-      }
+        interval: undefined,
+      },
     };
   });
 
@@ -139,16 +143,36 @@ export const TimerModule: StoreonModule<
         ...timer,
         mode,
         counter: getModeDuration(user!, mode),
-        interval: undefined
-      }
+        interval: undefined,
+      },
     };
   });
 
   store.on("timerSavePomodoro", async ({ timer: { startTime }, user }) => {
     await api.createPomodoro({
       startDate: startTime!.toISOString(),
-      duration: getModeDuration(user!, "pomodoro")
+      duration: getModeDuration(user!, "pomodoro"),
     });
+  });
+
+  store.on("timerAddTagId", ({ timer }, tagId) => {
+    return {
+      timer: {
+        ...timer,
+        selectedTagsIds: [...timer.selectedTagsIds, tagId],
+      },
+    };
+  });
+
+  store.on("timerRemoveTagId", ({ timer }, tagId) => {
+    return {
+      timer: {
+        ...timer,
+        selectedTagsIds: [
+          ...timer.selectedTagsIds.filter((id) => id !== tagId),
+        ],
+      },
+    };
   });
 };
 
@@ -168,7 +192,7 @@ async function notifyTimerFinished(mode: TimerMode) {
 
 function getModeDuration(user: User, mode: TimerMode): number {
   const {
-    settings: { timer: timerSettings }
+    settings: { timer: timerSettings },
   } = user;
 
   return minutesToMs(timerSettings[mode]);

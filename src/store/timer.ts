@@ -7,7 +7,6 @@ import { setBadge } from "badge";
 import { UserState } from "./user";
 import { User } from "models/User";
 import { api } from "api";
-import { Tag } from "models/Tag";
 
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
 
@@ -148,12 +147,16 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
     };
   });
 
-  store.on("timerSavePomodoro", async ({ timer: { startTime }, user }) => {
-    await api.createPomodoro({
-      startDate: startTime!.toISOString(),
-      duration: getModeDuration(user!, "pomodoro"),
-    });
-  });
+  store.on(
+    "timerSavePomodoro",
+    async ({ timer: { startTime, selectedTagsIds }, user }) => {
+      await api.createPomodoro({
+        startDate: startTime!.toISOString(),
+        duration: getModeDuration(user!, "pomodoro"),
+        tags: selectedTagsIds,
+      });
+    }
+  );
 
   store.on("timerAddTagId", ({ timer }, tagId) => {
     return {

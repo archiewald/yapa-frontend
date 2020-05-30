@@ -1,6 +1,5 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { setLocale } from "yup";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 
@@ -18,7 +17,7 @@ const LoginSchema = yup.object({
     .string()
     .email()
     .required(),
-  password: yup.string().required()
+  password: yup.string().required(),
 });
 
 export const LoginPage: React.FC = () => {
@@ -34,7 +33,7 @@ export const LoginPage: React.FC = () => {
         validationSchema={LoginSchema}
         initialValues={{
           email: userTemp?.email || "",
-          password: ""
+          password: "",
         }}
         onSubmit={async ({ email, password }) => {
           try {
@@ -46,8 +45,8 @@ export const LoginPage: React.FC = () => {
             setAlerts([
               {
                 message: error.message,
-                style: "danger"
-              }
+                style: "danger",
+              },
             ]);
           }
         }}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
@@ -10,7 +10,6 @@ import { AlertList } from "ui/AlertsList";
 import { useStore } from "store/useStore";
 import { useAlerts } from "utils/useAlerts";
 import { api } from "api";
-import { Tag } from "models/Tag";
 
 const SettingsSchema = yup.object({
   pomodoro: yup
@@ -124,8 +123,9 @@ export const SettingsPage: React.FC = () => {
         )}
       </Formik>
 
-      <h2 className="mb-3">Tags</h2>
+      <hr />
 
+      <h2 className="mb-3">Tags</h2>
       <ul>
         {tags?.map(({ name, id }) => (
           <li key={id}>{name}</li>

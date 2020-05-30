@@ -3,6 +3,7 @@ import { Tag } from "models/Tag";
 import { api } from "api";
 
 export interface TagsState {
+  // TODO: would be better to make it a list
   tags?: Tag[];
 }
 

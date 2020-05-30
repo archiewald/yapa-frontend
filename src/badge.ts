@@ -9,8 +9,8 @@ export function setBadge(value?: number) {
     return;
   }
 
-  if (window.setAppBadge) {
-    window.setAppBadge(value);
+  if (navigator.setAppBadge) {
+    navigator.setAppBadge(value);
   }
 }
 
@@ -19,7 +19,7 @@ export function clearBadge() {
     navigator.clearExperimentalAppBadge();
   }
 
-  if (window.clearAppBadge) {
-    window.clearAppBadge();
+  if (navigator.clearAppBadge) {
+    navigator.clearAppBadge();
   }
 }

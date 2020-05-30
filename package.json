@@ -30,7 +30,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build:debug": "npm run build && http-server build",
+    "start:build": "http-server build",
+    "build:debug": "npm run build && npm run start:build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

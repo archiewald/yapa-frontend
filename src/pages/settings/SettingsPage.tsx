@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
@@ -10,6 +10,7 @@ import { AlertList } from "ui/AlertsList";
 import { useStore } from "store/useStore";
 import { useAlerts } from "utils/useAlerts";
 import { api } from "api";
+import { Tag } from "models/Tag";
 
 const SettingsSchema = yup.object({
   pomodoro: yup
@@ -22,7 +23,6 @@ const SettingsSchema = yup.object({
     .integer()
     .min(0)
     .required(),
-
   longBreak: yup
     .number()
     .integer()
@@ -30,10 +30,25 @@ const SettingsSchema = yup.object({
     .required(),
 });
 
+const TagSchema = yup.object({
+  name: yup.string().required(),
+});
+
 export const SettingsPage: React.FC = () => {
   const { alerts, setAlerts } = useAlerts();
   const { user, dispatch } = useStore("user");
   const history = useHistory();
+
+  const [tags, setTags] = useState<Tag[]>([]);
+
+  useEffect(() => {
+    async function getTags() {
+      setTags(await api.getTags());
+    }
+
+    getTags();
+    // TODO: include dependencies?
+  }, []);
 
   const {
     settings: {
@@ -47,17 +62,19 @@ export const SettingsPage: React.FC = () => {
       <AlertList alerts={alerts} />
       <h2 className="mb-3">Settings</h2>
 
-      <p>Account email: {email}</p>
-      <Button
-        className="mb-4"
-        onClick={async () => {
-          await api.logout();
-          dispatch("userClear");
-          history.push("/");
-        }}
-      >
-        Logout
-      </Button>
+      <p>
+        Account email: {email}
+        <Button
+          className="ml-4"
+          onClick={async () => {
+            await api.logout();
+            dispatch("userClear");
+            history.push("/");
+          }}
+        >
+          Logout
+        </Button>
+      </p>
 
       <Formik
         validationSchema={SettingsSchema}
@@ -96,15 +113,58 @@ export const SettingsPage: React.FC = () => {
       >
         {({ isSubmitting }) => (
           <Form noValidate={true}>
-            <TextField type="number" name="pomodoro" label="Pomodoro time" />
-            <TextField
-              type="number"
-              name="shortBreak"
-              label="Short break time"
-            />
-            <TextField type="number" name="longBreak" label="Long break time" />
+            <div className="row mb-4">
+              <div className="col">
+                <TextField type="number" name="pomodoro" label="Pomodoro" />
+              </div>
+              <div className="col">
+                <TextField
+                  type="number"
+                  name="shortBreak"
+                  label="Short break"
+                />
+              </div>
+              <div className="col">
+                <TextField type="number" name="longBreak" label="Long break" />
+              </div>
+            </div>
             <Button type="submit" block={true} disabled={isSubmitting}>
               Save
+            </Button>
+          </Form>
+        )}
+      </Formik>
+      <ul>
+        {tags.map(({ name, id }) => (
+          <li key={id}>{name}</li>
+        ))}
+      </ul>
+
+      <Formik
+        validationSchema={TagSchema}
+        initialValues={{
+          name: "",
+        }}
+        onSubmit={async ({ name }) => {
+          try {
+            const tag = await api.createTag({ name });
+
+            setTags((tags) => [...tags, tag]);
+          } catch (error) {
+            setAlerts([
+              {
+                message: error.message,
+                style: "danger",
+              },
+            ]);
+          }
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form noValidate={true}>
+            <TextField name="name" label="Tag name" />
+            <Button type="submit" block={true} disabled={isSubmitting}>
+              Save tag
             </Button>
           </Form>
         )}

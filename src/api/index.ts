@@ -1,6 +1,7 @@
 import { axiosInstance } from "api/axiosInstance";
 import { User, UserSettings } from "models/User";
 import { Pomodoro } from "models/Pomodoro";
+import { Tag } from "models/Tag";
 
 export const api = {
   register: async (email: string, password: string) =>
@@ -32,4 +33,7 @@ export const api = {
   ) => await axiosInstance.post<Pomodoro>("/pomodoros", pomodoro),
   getPomodoros: async () =>
     (await axiosInstance.get<Pomodoro[]>("/pomodoros")).data,
+  createTag: async (tag: Omit<Tag, "id">) =>
+    (await axiosInstance.post<Tag>("/tags", tag)).data,
+  getTags: async () => (await axiosInstance.get<Tag[]>("/tags")).data,
 };

@@ -4,7 +4,7 @@ import { api } from "api";
 
 export interface TagsState {
   // TODO: would be better to make it a list
-  tags?: Tag[];
+  tags: Tag[];
 }
 
 export interface TagsEvents {
@@ -17,6 +17,7 @@ export interface TagsEvents {
 export const TagsModule: StoreonModule<TagsState, TagsEvents> = (store) => {
   store.on("@init", () => {
     store.dispatch("tagsGet");
+    return { tags: [] };
   });
 
   store.on("tagsGet", async () => {

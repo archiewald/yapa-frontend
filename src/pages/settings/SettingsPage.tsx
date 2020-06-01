@@ -127,7 +127,7 @@ export const SettingsPage: React.FC = () => {
 
       <h2 className="mb-3">Tags</h2>
       <ul>
-        {tags?.map(({ name, id }) => (
+        {tags.map(({ name, id }) => (
           <li key={id}>{name}</li>
         ))}
       </ul>

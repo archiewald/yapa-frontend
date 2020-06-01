@@ -49,7 +49,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
     return {
       timer: {
         ...timer,
-        counter: getModeDuration(user!, "pomodoro"),
+        counter: timer.counter || getModeDuration(user!, "pomodoro"),
       },
     };
   });

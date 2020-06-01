@@ -28,7 +28,7 @@ export const PomodorosPage: React.FC = () => {
           <li key={id}>
             {msToFullMinutes(duration)} min, started {startDate}, tags:{" "}
             {userTags
-              ?.filter(({ id }) =>
+              .filter(({ id }) =>
                 tags.some((_id) => {
                   return id === _id;
                 })

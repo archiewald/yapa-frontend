@@ -1,6 +1,7 @@
 import { StoreonModule } from "storeon";
 import { User } from "models/User";
 import { api } from "api";
+import { AppEvents } from "store";
 
 export interface UserState {
   user?: User | null;
@@ -9,20 +10,24 @@ export interface UserState {
 
 export interface UserEvents {
   userSave: User | null;
-  userGet: undefined;
+  userGetWithTags: undefined;
   userClear: undefined;
   userSaveTemp: User;
 }
 
-export const UserModule: StoreonModule<UserState, UserEvents> = (store) => {
+export const UserModule: StoreonModule<UserState, AppEvents> = (store) => {
   store.on("@init", () => {
-    store.dispatch("userGet");
+    store.dispatch("userGetWithTags");
   });
 
-  store.on("userGet", async () => {
+  store.on("userGetWithTags", async () => {
     const user = await api.getUser();
 
     store.dispatch("userSave", user ? user : null);
+
+    if (user) {
+      store.dispatch("tagsGet");
+    }
   });
 
   store.on("userClear", () => ({

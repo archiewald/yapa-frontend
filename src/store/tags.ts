@@ -16,7 +16,6 @@ export interface TagsEvents {
 
 export const TagsModule: StoreonModule<TagsState, TagsEvents> = (store) => {
   store.on("@init", () => {
-    store.dispatch("tagsGet");
     return { tags: [] };
   });
 

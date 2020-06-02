@@ -39,6 +39,7 @@ export const LoginPage: React.FC = () => {
           try {
             const user = await api.login(email, password);
             store.dispatch("userSave", user);
+            store.dispatch("tagsGet");
 
             history.push("/dashboard");
           } catch (error) {

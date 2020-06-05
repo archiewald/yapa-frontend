@@ -27,6 +27,7 @@ export const UserModule: StoreonModule<UserState, AppEvents> = (store) => {
 
     if (user) {
       store.dispatch("tagsGet");
+      store.dispatch("pomodorosGet");
     }
   });
 

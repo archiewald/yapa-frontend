@@ -8,17 +8,7 @@ import { msToFullMinutes } from "utils/timeUtils";
 import { useStore } from "store/useStore";
 
 export const PomodorosPage: React.FC = () => {
-  const { tags: userTags } = useStore("tags");
-  const [pomodoros, setPomodoros] = useState<Pomodoro[]>([]);
-
-  useEffect(() => {
-    async function getPomodoros() {
-      setPomodoros(await api.getPomodoros());
-    }
-
-    getPomodoros();
-    // TODO: include dependencies?
-  }, []);
+  const { tags: userTags, pomodoros } = useStore("tags", "pomodoros");
 
   return (
     <AppPage>

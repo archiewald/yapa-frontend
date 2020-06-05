@@ -30,7 +30,7 @@ export const api = {
     (await axiosInstance.put<User>("/user/settings", settings)).data,
   createPomodoro: async (
     pomodoro: Omit<Pomodoro, "id" | "tags"> & { tags?: Array<string> }
-  ) => await axiosInstance.post<Pomodoro>("/pomodoros", pomodoro),
+  ) => (await axiosInstance.post<Pomodoro>("/pomodoros", pomodoro)).data,
   getPomodoros: async () =>
     (await axiosInstance.get<Pomodoro[]>("/pomodoros")).data,
   createTag: async (tag: Omit<Tag, "id">) =>

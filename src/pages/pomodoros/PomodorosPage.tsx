@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { groupBy } from "lodash";
-import { startOfDay } from "date-fns";
+import { startOfDay, format } from "date-fns";
 
 import { AppPage } from "ui/AppPage";
 import { api } from "api";
@@ -16,13 +16,16 @@ export const PomodorosPage: React.FC = () => {
   const daysWithPomodoros = groupBy(pomodoros, ({ startDate }) =>
     startOfDay(new Date(startDate))
   );
-  console.log(daysWithPomodoros);
 
   return (
     <AppPage>
       <h2>Pomodoros by day</h2>
       {Object.entries(daysWithPomodoros).map(([day, pomodoros]) => (
-        <DaySummaryCard title={day} pomodoros={pomodoros} />
+        <DaySummaryCard
+          key={day}
+          title={format(new Date(day), "eee d LLL")}
+          pomodoros={pomodoros}
+        />
       ))}
     </AppPage>
   );

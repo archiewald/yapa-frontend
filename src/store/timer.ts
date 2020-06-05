@@ -3,10 +3,10 @@ import { addMilliseconds, differenceInMilliseconds } from "date-fns";
 
 import { minutesToMs, msToFullMinutes } from "utils/timeUtils";
 import { showNotification } from "notifications";
-import { setBadge } from "badge";
+import { setBadge, clearBadge } from "badge";
 import { UserState } from "./user";
 import { User } from "models/User";
-import { api } from "api";
+import { AppEvents } from "store";
 
 export type TimerMode = "pomodoro" | "shortBreak" | "longBreak";
 
@@ -34,7 +34,7 @@ export interface TimerEvents {
   timerRemoveTagId: string;
 }
 
-export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
+export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
   store
 ) => {
   store.on("@init", () => ({
@@ -54,16 +54,22 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
     };
   });
 
-  store.on("timerUpdate", ({ timer }) => {
-    const { endTime, mode } = timer;
+  store.on("timerUpdate", ({ timer, user }) => {
+    const { endTime, mode, startTime, selectedTagsIds } = timer;
     const counter = differenceInMilliseconds(endTime!, new Date());
     const done = counter <= 0;
 
-    setBadge(msToFullMinutes(counter));
+    if (done) {
+      clearBadge();
+    } else setBadge(msToFullMinutes(counter));
 
     if (done) {
       notifyTimerFinished(mode);
-      store.dispatch("timerSavePomodoro");
+      store.dispatch("pomodorosCreate", {
+        startDate: startTime!.toISOString(),
+        duration: getModeDuration(user!, "pomodoro"),
+        tags: selectedTagsIds,
+      });
       return store.dispatch("timerReset");
     }
 
@@ -146,17 +152,6 @@ export const TimerModule: StoreonModule<TimerState & UserState, TimerEvents> = (
       },
     };
   });
-
-  store.on(
-    "timerSavePomodoro",
-    async ({ timer: { startTime, selectedTagsIds }, user }) => {
-      await api.createPomodoro({
-        startDate: startTime!.toISOString(),
-        duration: getModeDuration(user!, "pomodoro"),
-        tags: selectedTagsIds,
-      });
-    }
-  );
 
   store.on("timerAddTagId", ({ timer }, tagId) => {
     return {

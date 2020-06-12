@@ -1,21 +1,29 @@
 import React, { useEffect } from "react";
+import { isSameDay } from "date-fns";
 
 import { renderTimeString } from "utils/timeUtils";
 import { askPermission, showNotification } from "notifications";
 import { AppPage } from "ui/AppPage";
 import { useStore } from "store/useStore";
 import { TagsSelector } from "./TagsSelector";
+import { DaySummaryCard } from "ui/DaySummaryCard/DaySummaryCard";
 
 export const DashboardPage: React.FC = () => {
   const {
     timer: { counter, selectedTagsIds },
     tags = [],
+    pomodoros,
     dispatch,
-  } = useStore("timer", "tags");
+  } = useStore("timer", "tags", "pomodoros");
 
   useEffect(() => {
     dispatch("timerInit");
   }, []);
+
+  const today = new Date();
+  const todayPomodoros = pomodoros.filter(({ startDate }) =>
+    isSameDay(new Date(startDate), today)
+  );
 
   return (
     <AppPage>
@@ -101,6 +109,8 @@ export const DashboardPage: React.FC = () => {
       >
         test notification
       </button>
+
+      <DaySummaryCard title="Pomodoros today" pomodoros={todayPomodoros} />
     </AppPage>
   );
 };

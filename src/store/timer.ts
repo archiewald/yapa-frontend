@@ -65,11 +65,15 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
 
     if (done) {
       notifyTimerFinished(mode);
-      store.dispatch("pomodorosCreate", {
-        startDate: startTime!.toISOString(),
-        duration: getModeDuration(user!, "pomodoro"),
-        tags: selectedTagsIds,
-      });
+
+      if (timer.mode === "pomodoro") {
+        store.dispatch("pomodorosCreate", {
+          startDate: startTime!.toISOString(),
+          duration: getModeDuration(user!, "pomodoro"),
+          tags: selectedTagsIds,
+        });
+      }
+
       return store.dispatch("timerReset");
     }
 

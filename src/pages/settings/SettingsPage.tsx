@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 
+import { store } from "store";
 import { yup } from "yupInstance";
 import { AppPage } from "ui/AppPage";
 import { TextField } from "ui/form/TextField";
@@ -82,6 +83,11 @@ export const SettingsPage: React.FC = () => {
             });
 
             dispatch("userSave", user);
+
+            if (!store.get().timer.interval) {
+              // if no timer ongoing, force timer reset so user can see a new assigned value
+              dispatch("timerReset");
+            }
 
             setAlerts([
               {

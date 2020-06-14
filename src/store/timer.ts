@@ -181,7 +181,9 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
 async function notifyTimerFinished(mode: TimerMode) {
   switch (mode) {
     case "pomodoro":
-      await showNotification("Pomodoro finished!");
+      await showNotification("Pomodoro finished!", {
+        actions: [{ action: "startShortBreak", title: "Start short break 😴" }],
+      });
       return;
     case "shortBreak":
       await showNotification("Short break finished!");

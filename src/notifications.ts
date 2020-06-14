@@ -18,12 +18,16 @@ export function askPermission() {
   });
 }
 
-export async function showNotification(message: string) {
+export async function showNotification(
+  message: string,
+  options?: NotificationOptions
+) {
   const registration = await navigator.serviceWorker.getRegistration();
 
   if (registration) {
     registration.showNotification(message, {
-      icon: pomodoroIcon
+      icon: pomodoroIcon,
+      ...options,
     });
   }
 }

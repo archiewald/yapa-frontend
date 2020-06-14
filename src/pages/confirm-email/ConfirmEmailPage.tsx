@@ -24,8 +24,8 @@ export const ConfirmEmailPage: React.FC = () => {
         setAlerts([
           {
             style: "danger",
-            message: error.message
-          }
+            message: error.message,
+          },
         ]);
       }
     }
@@ -38,6 +38,7 @@ export const ConfirmEmailPage: React.FC = () => {
     <AppPage>
       <AlertList alerts={alerts} />
       <h2>Email confirmation</h2>
+      <p>Activating your account...</p>
     </AppPage>
   );
 };

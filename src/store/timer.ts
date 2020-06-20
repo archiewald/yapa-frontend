@@ -188,10 +188,14 @@ async function notifyTimerFinished(mode: TimerMode) {
       });
       return;
     case "shortBreak":
-      await showNotification("Short break finished!");
+      await showNotification("Short break finished!", {
+        actions: [getNotificationAction("startPomodoro")],
+      });
       return;
     case "longBreak":
-      await showNotification("Long break finished!");
+      await showNotification("Long break finished!", {
+        actions: [getNotificationAction("startPomodoro")],
+      });
       return;
   }
 }

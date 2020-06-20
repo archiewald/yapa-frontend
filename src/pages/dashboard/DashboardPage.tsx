@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { isSameDay } from "date-fns";
 
 import { renderTimeString } from "utils/timeUtils";
-import { askPermission, showNotification } from "notifications";
+import { askPermission, showNotification } from "notifications/utils";
 import { AppPage } from "ui/AppPage";
 import { useStore } from "store/useStore";
 import { TagsSelector } from "./TagsSelector";

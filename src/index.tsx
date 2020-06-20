@@ -19,14 +19,3 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
-
-function handleNotificationsActions(registration: ServiceWorkerRegistration) {
-  registration.addEventListener("notificationclick", (event: any) => {
-    console.log("notificationClicked", event);
-    event.notification.close();
-
-    // if (event.action === "startShortBreak"){
-    //   registration
-    // }
-  });
-}

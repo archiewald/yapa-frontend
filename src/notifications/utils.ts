@@ -1,6 +1,6 @@
 // https://developers.google.com/web/fundamentals/push-notifications/subscribing-a-user
 
-import pomodoroIcon from "./assets/tomato-icon.png";
+import pomodoroIcon from "../assets/tomato-icon.png";
 
 export function askPermission() {
   return new Promise(function(resolve, reject) {

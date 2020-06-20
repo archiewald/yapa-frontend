@@ -1,6 +1,11 @@
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
+import {
+  NotificationActionCode,
+  runNotificationHandler,
+} from "notifications/actions";
+
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
 // will only see deployed updates on subsequent visits to a page, after all the
@@ -27,6 +32,8 @@ type Config = {
 
 export function register(config?: Config) {
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
+    handleMessages();
+
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
@@ -143,4 +150,15 @@ export function unregister() {
         console.error(error.message);
       });
   }
+}
+
+function handleMessages() {
+  navigator.serviceWorker.addEventListener(
+    "message",
+    ({ data: { action } }) => {
+      if (action) {
+        runNotificationHandler(action as NotificationActionCode);
+      }
+    }
+  );
 }

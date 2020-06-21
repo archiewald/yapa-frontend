@@ -1,6 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import classNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTag } from "@fortawesome/free-solid-svg-icons";
 
 import { Tag } from "models/Tag";
 
@@ -31,6 +33,7 @@ export const TagsSelector: React.FC<Props> = ({
             onClick={() => onSelect(id, isSelected)}
             variant={isSelected ? "primary" : "outline-primary"}
           >
+            <FontAwesomeIcon className="mr-1" icon={faTag} />
             {name}
           </Button>
         </li>

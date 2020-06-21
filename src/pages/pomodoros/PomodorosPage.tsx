@@ -15,14 +15,14 @@ export const PomodorosPage: React.FC = () => {
 
   return (
     <AppPage>
-      <h2>Pomodoros by day</h2>
+      <h2 className="mb-4">Pomodoros by day</h2>
       {Object.entries(daysWithPomodoros)
         .map(([day, pomodoros]) => ({ day: new Date(day), pomodoros }))
         .sort((a, b) => compareDesc(a.day, b.day))
         .map(({ day, pomodoros }) => (
           <DaySummaryCard
             key={day.toISOString()}
-            title={format(new Date(day), "eee d LLL")}
+            title={format(new Date(day), "eeee d LLLL")}
             pomodoros={pomodoros}
           />
         ))}

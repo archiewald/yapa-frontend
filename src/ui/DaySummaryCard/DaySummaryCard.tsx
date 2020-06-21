@@ -4,6 +4,8 @@ import { useStore } from "store/useStore";
 
 import "./DaySummaryCard.scss";
 import { PomodorosList } from "./PomodorosList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTags } from "@fortawesome/free-solid-svg-icons";
 
 export interface DaySummaryCardProps {
   title: string;
@@ -36,15 +38,17 @@ export const DaySummaryCard: React.FC<DaySummaryCardProps> = ({
       <div className="card-body">
         <div className="DaySummaryCard__title">
           <h3 className="card-title">{title}</h3>
-          <h4 className="card-subtitle">
+          <span>
+            🍅 x {pomodoros.length}
+            <FontAwesomeIcon className="mr-2 ml-3" icon={faTags} />
             {userTags.length > 0 && (
               <ul className="DaySummaryCardTagsList">
                 {Object.entries(tagsCounts).map(([tagId, count]) => {
                   const { name } = userTags.find(({ id }) => id === tagId)!;
 
                   return (
-                    <li key={tagId} className="DaySummaryCardTagsList">
-                      <div className="btn btn-sm btn-outline-primary mr-2 DaySummaryCardTagsList__element">
+                    <li key={tagId} className="mr-2">
+                      <div>
                         {name} x {count}
                       </div>
                     </li>
@@ -52,8 +56,7 @@ export const DaySummaryCard: React.FC<DaySummaryCardProps> = ({
                 })}
               </ul>
             )}
-            {pomodoros.length}🍅
-          </h4>
+          </span>
         </div>
         <PomodorosList pomodoros={pomodoros} />
       </div>

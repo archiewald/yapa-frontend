@@ -21,6 +21,7 @@ export interface TimerState {
     counter?: number;
     mode: TimerMode;
     selectedTagsIds: string[];
+    isPaused: boolean;
   };
 }
 
@@ -44,6 +45,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
       mode: "pomodoro",
       done: false,
       selectedTagsIds: [],
+      isPaused: false,
     },
   }));
 
@@ -63,7 +65,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
 
     if (done) {
       clearBadge();
-    } else setBadge(msToFullMinutes(counter));
+    } else setBadge(msToFullMinutes(counter) + 1);
 
     if (done) {
       notifyTimerFinished(mode);
@@ -108,6 +110,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
         interval,
         endTime,
         startTime: now,
+        isPaused: false,
       },
     };
   });
@@ -122,6 +125,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
       timer: {
         ...timer,
         interval: undefined,
+        isPaused: true,
       },
     };
   });
@@ -138,6 +142,7 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
         ...timer,
         counter: getModeDuration(user!, timer.mode),
         interval: undefined,
+        isPaused: false,
       },
     };
   });

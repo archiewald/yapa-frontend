@@ -11,7 +11,7 @@ import { AlertList } from "ui/AlertsList";
 import { useStore } from "store/useStore";
 import { useAlerts } from "utils/useAlerts";
 import { api } from "api";
-import { askPermission, showNotification } from "notifications";
+import { askPermission, showNotification } from "notifications/utils";
 
 const SettingsSchema = yup.object({
   pomodoro: yup
@@ -51,20 +51,6 @@ export const SettingsPage: React.FC = () => {
     <AppPage>
       <AlertList alerts={alerts} />
       <h2 className="mb-3">Settings</h2>
-
-      <p>
-        Account email: {email}
-        <Button
-          className="ml-4"
-          onClick={async () => {
-            await api.logout();
-            dispatch("userClear");
-            history.push("/");
-          }}
-        >
-          Logout
-        </Button>
-      </p>
 
       <Formik
         validationSchema={SettingsSchema}
@@ -170,9 +156,26 @@ export const SettingsPage: React.FC = () => {
         )}
       </Formik>
 
-      <p>
-        {/* // eslint-disable-next-line */}
-        🍅 icon made by{" "}
+      <hr />
+
+      <Button
+        className="mr-3"
+        onClick={() => {
+          askPermission();
+        }}
+      >
+        Request notifications permission
+      </Button>
+      <Button
+        onClick={() => {
+          showNotification("TEST");
+        }}
+      >
+        Test notification
+      </Button>
+
+      <p className={"mt-3"}>
+        pomodoro icon made by{" "}
         <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
           Freepik
         </a>{" "}
@@ -182,21 +185,22 @@ export const SettingsPage: React.FC = () => {
           www.flaticon.com
         </a>
       </p>
-      <button
-        onClick={() => {
-          askPermission();
-        }}
-      >
-        request Push notifications permission
-      </button>
 
-      <button
-        onClick={() => {
-          showNotification("TEST");
-        }}
-      >
-        test notification
-      </button>
+      <hr />
+
+      <p>
+        Account email: {email}
+        <Button
+          className="ml-4"
+          onClick={async () => {
+            await api.logout();
+            dispatch("userClear");
+            history.push("/");
+          }}
+        >
+          Logout
+        </Button>
+      </p>
     </AppPage>
   );
 };

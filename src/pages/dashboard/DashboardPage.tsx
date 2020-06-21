@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { isSameDay } from "date-fns";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 
 import { renderTimeString } from "utils/timeUtils";
@@ -11,22 +9,12 @@ import { useStore } from "store/useStore";
 import { TagsSelector } from "./TagsSelector";
 
 import "./DashboardPage.scss";
-
-const PlayIcon = () => (
-  <FontAwesomeIcon icon={faPlay} className={"mr-2"} size="sm" />
-);
-
-const PauseIcon = () => (
-  <FontAwesomeIcon icon={faPause} className={"mr-2"} size="sm" />
-);
-
-const StopIcon = () => (
-  <FontAwesomeIcon icon={faStop} className={"mr-2"} size="sm" />
-);
+import { StartButton } from "./StartButton";
+import { PauseIcon, PlayIcon, StopIcon } from "./Icons";
 
 export const DashboardPage: React.FC = () => {
   const {
-    timer: { counter, selectedTagsIds, mode, interval },
+    timer: { counter, selectedTagsIds, mode, interval, isPaused },
     tags = [],
     pomodoros,
     dispatch,
@@ -45,49 +33,13 @@ export const DashboardPage: React.FC = () => {
     <AppPage>
       <div className="row mb-4">
         <div className="col">
-          <Button
-            variant={
-              interval && mode === "pomodoro" ? "primary" : "outline-primary"
-            }
-            block={true}
-            onClick={() => {
-              dispatch("timerSetMode", "pomodoro");
-              dispatch("timerStart");
-            }}
-          >
-            <PlayIcon />
-            Pomodoro
-          </Button>
+          <StartButton mode="pomodoro">Pomodoro</StartButton>
         </div>
         <div className="col">
-          <Button
-            variant={
-              interval && mode === "shortBreak" ? "primary" : "outline-primary"
-            }
-            block={true}
-            onClick={() => {
-              dispatch("timerSetMode", "shortBreak");
-              dispatch("timerStart");
-            }}
-          >
-            <PlayIcon />
-            Short break
-          </Button>
+          <StartButton mode="shortBreak">Short break</StartButton>
         </div>
         <div className="col">
-          <Button
-            variant={
-              interval && mode === "longBreak" ? "primary" : "outline-primary"
-            }
-            block={true}
-            onClick={() => {
-              dispatch("timerSetMode", "longBreak");
-              dispatch("timerStart");
-            }}
-          >
-            <PlayIcon />
-            Long break
-          </Button>
+          <StartButton mode="longBreak">Long break</StartButton>
         </div>
       </div>
 
@@ -102,11 +54,25 @@ export const DashboardPage: React.FC = () => {
             variant="outline-danger"
             block={true}
             onClick={() => {
-              dispatch("timerPause");
+              if (!isPaused) {
+                dispatch("timerPause");
+                return;
+              }
+
+              dispatch("timerStart");
             }}
           >
-            <PauseIcon />
-            Pause
+            {!isPaused ? (
+              <>
+                <PauseIcon />
+                Pause
+              </>
+            ) : (
+              <>
+                <PlayIcon />
+                Continue
+              </>
+            )}
           </Button>
           <Button
             variant="outline-danger"

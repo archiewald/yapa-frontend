@@ -11,13 +11,5 @@
     margin: 0;
     padding: 0;
     list-style: none;
-
-    &__element {
-      cursor: default;
-      &:hover {
-        background-color: $white;
-        color: $primary;
-      }
-    }
   }
 }

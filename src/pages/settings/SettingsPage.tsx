@@ -11,6 +11,7 @@ import { AlertList } from "ui/AlertsList";
 import { useStore } from "store/useStore";
 import { useAlerts } from "utils/useAlerts";
 import { api } from "api";
+import { askPermission, showNotification } from "notifications";
 
 const SettingsSchema = yup.object({
   pomodoro: yup
@@ -168,6 +169,34 @@ export const SettingsPage: React.FC = () => {
           </Form>
         )}
       </Formik>
+
+      <p>
+        {/* // eslint-disable-next-line */}
+        🍅 icon made by{" "}
+        <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+          Freepik
+        </a>{" "}
+        from{" "}
+        <a href="https://www.flaticon.com/" title="Flaticon">
+          {" "}
+          www.flaticon.com
+        </a>
+      </p>
+      <button
+        onClick={() => {
+          askPermission();
+        }}
+      >
+        request Push notifications permission
+      </button>
+
+      <button
+        onClick={() => {
+          showNotification("TEST");
+        }}
+      >
+        test notification
+      </button>
     </AppPage>
   );
 };

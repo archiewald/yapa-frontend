@@ -1,0 +1,23 @@
+@import "~styles/variables";
+
+.DaySummaryCard {
+  &__title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &TagsList {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &__element {
+      cursor: default;
+      &:hover {
+        background-color: $white;
+        color: $primary;
+      }
+    }
+  }
+}

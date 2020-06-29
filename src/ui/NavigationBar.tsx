@@ -37,6 +37,13 @@ const NAVIGATION_ITEMS_PRIVATE: NavigationItem[] = [
   },
 ];
 
+const NAVIGATION_ITEMS_COMMON: NavigationItem[] = [
+  {
+    route: "/about",
+    name: "About",
+  },
+];
+
 export const NavigationBar: React.FC = () => {
   const { user } = useStore("user");
 
@@ -46,6 +53,7 @@ export const NavigationBar: React.FC = () => {
         <ul className="navbar-nav">
           {user && NAVIGATION_ITEMS_PRIVATE.map(renderNavItem)}
           {user === null && NAVIGATION_ITEMS_PUBLIC.map(renderNavItem)}
+          {NAVIGATION_ITEMS_COMMON.map(renderNavItem)}
         </ul>
       </Nav>
     </Navbar>

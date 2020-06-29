@@ -8,6 +8,9 @@ import { LoginPage } from "pages/login/LoginPage";
 import { NotFoundPage } from "pages/not-found/NotFoundPage";
 import { PomodorosPage } from "pages/pomodoros/PomodorosPage";
 import { ConfirmEmailPage } from "pages/confirm-email/ConfirmEmailPage";
+import { AboutPage } from "pages/about/AboutPage";
+import { TermsOfServicePage } from "pages/terms-of-service/TermsOfService";
+import { PrivacyPolicyPage } from "pages/privacy-policy/PrivacyPolicyPage";
 
 import { Loader } from "ui/Loader";
 import { PrivateRoute } from "utils/router/PrivateRoute";
@@ -44,6 +47,17 @@ export const App: React.FC = () => {
         </PrivateRoute>
         <PrivateRoute path="/pomodoros">
           <PomodorosPage />
+        </PrivateRoute>
+
+        <PrivateRoute path="/about">
+          <AboutPage />
+        </PrivateRoute>
+
+        <PrivateRoute path="/terms-of-service">
+          <TermsOfServicePage />
+        </PrivateRoute>
+        <PrivateRoute path="/privacy-policy">
+          <PrivacyPolicyPage />
         </PrivateRoute>
 
         <Route>

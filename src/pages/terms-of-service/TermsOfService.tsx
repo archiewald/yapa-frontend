@@ -57,6 +57,12 @@ export const TermsOfServicePage = () => (
       </li>
     </ul>
 
+    <h3>Mailing</h3>
+    <p>
+      By signing up to Yapa Services you give us permission to inform you about
+      Artur Kozubek company activities via email.
+    </p>
+
     <h3>Software</h3>
     <p>
       Some of our Services allow you to download client software ("Software")

@@ -21,6 +21,7 @@ export const PomodorosPage: React.FC = () => {
         .sort((a, b) => compareDesc(a.day, b.day))
         .map(({ day, pomodoros }) => (
           <DaySummaryCard
+            className="mb-3"
             key={day.toISOString()}
             title={format(new Date(day), "eeee d LLLL")}
             pomodoros={pomodoros}

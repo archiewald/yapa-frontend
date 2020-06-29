@@ -1,20 +1,23 @@
 import React from "react";
 import { Pomodoro } from "models/Pomodoro";
 import { useStore } from "store/useStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTags } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames";
 
 import "./DaySummaryCard.scss";
 import { PomodorosList } from "./PomodorosList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTags } from "@fortawesome/free-solid-svg-icons";
 
 export interface DaySummaryCardProps {
   title: string;
   pomodoros: Pomodoro[];
+  className?: string;
 }
 
 export const DaySummaryCard: React.FC<DaySummaryCardProps> = ({
   title,
   pomodoros,
+  className,
 }) => {
   const { tags: userTags } = useStore("tags");
 
@@ -34,7 +37,7 @@ export const DaySummaryCard: React.FC<DaySummaryCardProps> = ({
   );
 
   return (
-    <div className="card">
+    <div className={classNames("card", className)}>
       <div className="card-body">
         <div className="DaySummaryCard__title">
           <h3 className="card-title">{title}</h3>

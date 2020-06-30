@@ -15,14 +15,26 @@ import { PrivacyPolicyPage } from "pages/privacy-policy/PrivacyPolicyPage";
 import { Loader } from "ui/Loader";
 import { PrivateRoute } from "utils/router/PrivateRoute";
 import { useStore } from "store/useStore";
+import { CookiesBanner } from "ui/CookiesBanner";
 
 export const App: React.FC = () => {
-  const { isLoading } = useStore("isLoading");
+  const { isLoading, areCookiesAccepted, dispatch } = useStore(
+    "isLoading",
+    "areCookiesAccepted"
+  );
   const { user } = useStore("user");
 
   return (
     <BrowserRouter>
       {isLoading && <Loader />}
+      {!areCookiesAccepted && (
+        <CookiesBanner
+          onAcceptClick={() => {
+            dispatch("setAreCookiesAccepted", true);
+          }}
+        />
+      )}
+
       <Switch>
         <Route path="/" exact={true}>
           {user && <Redirect to="/dashboard" />}
@@ -49,16 +61,16 @@ export const App: React.FC = () => {
           <PomodorosPage />
         </PrivateRoute>
 
-        <PrivateRoute path="/about">
+        <Route path="/about">
           <AboutPage />
-        </PrivateRoute>
+        </Route>
 
-        <PrivateRoute path="/terms-of-service">
+        <Route path="/terms-of-service">
           <TermsOfServicePage />
-        </PrivateRoute>
-        <PrivateRoute path="/privacy-policy">
+        </Route>
+        <Route path="/privacy-policy">
           <PrivacyPolicyPage />
-        </PrivateRoute>
+        </Route>
 
         <Route>
           <NotFoundPage />

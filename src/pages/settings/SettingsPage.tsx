@@ -194,8 +194,8 @@ export const SettingsPage: React.FC = () => {
           className="ml-4"
           onClick={async () => {
             await api.logout();
+            history.push("/login");
             dispatch("userClear");
-            history.push("/");
           }}
         >
           Logout

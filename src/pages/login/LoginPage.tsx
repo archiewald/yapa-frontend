@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import Button from "react-bootstrap/Button";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { yup } from "yupInstance";
 import { api } from "api";
@@ -60,9 +60,11 @@ export const LoginPage: React.FC = () => {
               Login
             </Button>
             <p className="my-2">No account yet?</p>
-            <Button href="/register" variant={"outline-primary"} block={true}>
-              Register
-            </Button>
+            <Link to="/register">
+              <Button variant={"outline-primary"} block={true}>
+                Register
+              </Button>
+            </Link>
           </Form>
         )}
       </Formik>

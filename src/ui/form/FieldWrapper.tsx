@@ -7,7 +7,7 @@ type InputProps = Omit<
 >;
 
 export interface FieldWrapperProps extends InputProps, FieldConfig {
-  label?: string;
+  label?: React.ReactNode;
 }
 
 export const FieldWrapper: React.FC<FieldWrapperProps> = ({
@@ -19,7 +19,9 @@ export const FieldWrapper: React.FC<FieldWrapperProps> = ({
       {label && <label htmlFor={props.name}>{label}</label>}
       <Field className="form-control" {...props} />
       <ErrorMessage name={props.name}>
-        {message => <small className="form-text text-danger">{message}</small>}
+        {(message) => (
+          <small className="form-text text-danger">{message}</small>
+        )}
       </ErrorMessage>
     </div>
   );

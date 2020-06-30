@@ -41,7 +41,7 @@ export const RegisterPage: React.FC = () => {
 
   return (
     <AppPage>
-      <h2>Register</h2>
+      <h2>Sign up</h2>
       <AlertList alerts={alerts} />
       <Formik
         validationSchema={RegisterSchema}

@@ -18,7 +18,7 @@ const NAVIGATION_ITEMS_PUBLIC: NavigationItem[] = [
   },
   {
     route: "/register",
-    name: "Register",
+    name: "Sign up",
   },
 ];
 

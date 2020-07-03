@@ -3,12 +3,15 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
+import { useStore } from "store/useStore";
 import { HomeLayoutPage } from "ui/HomeLayoutPage";
 import homeScreen from "assets/hero-screen.png";
 
 import "./HomePage.scss";
 
 export const HomePage = () => {
+  const { user } = useStore("user");
+
   return (
     <HomeLayoutPage>
       <section id="hero">
@@ -23,7 +26,7 @@ export const HomePage = () => {
           <li>Stay active during breaks!</li>
         </ul>
 
-        <Link to="/register">
+        <Link to={user ? "/dashboard" : "/register"}>
           <Button size="lg" className="HomePageCtaButton my-4">
             Start now
           </Button>
@@ -83,7 +86,7 @@ export const HomePage = () => {
           </li>
         </ul>
 
-        <Link to="/register">
+        <Link to={user ? "/dashboard" : "/register"}>
           <Button size="lg" className="HomePageCtaButton my-4">
             Start now
           </Button>

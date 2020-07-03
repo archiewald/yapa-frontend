@@ -19,11 +19,11 @@ import { useStore } from "store/useStore";
 import { CookiesBanner } from "ui/CookiesBanner";
 
 export const App: React.FC = () => {
-  const { isLoading, areCookiesAccepted, dispatch } = useStore(
+  const { isLoading, user, areCookiesAccepted, dispatch } = useStore(
     "isLoading",
-    "areCookiesAccepted"
+    "areCookiesAccepted",
+    "user"
   );
-  const { user } = useStore("user");
 
   return (
     <BrowserRouter>

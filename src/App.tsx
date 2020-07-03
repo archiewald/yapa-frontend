@@ -11,6 +11,7 @@ import { ConfirmEmailPage } from "pages/confirm-email/ConfirmEmailPage";
 import { AboutPage } from "pages/about/AboutPage";
 import { TermsOfServicePage } from "pages/terms-of-service/TermsOfService";
 import { PrivacyPolicyPage } from "pages/privacy-policy/PrivacyPolicyPage";
+import { HomePage } from "pages/home/HomePage";
 
 import { Loader } from "ui/Loader";
 import { PrivateRoute } from "utils/router/PrivateRoute";
@@ -37,8 +38,7 @@ export const App: React.FC = () => {
 
       <Switch>
         <Route path="/" exact={true}>
-          {user && <Redirect to="/dashboard" />}
-          {user === null && <Redirect to="/login" />}
+          <HomePage />
         </Route>
 
         <Route path="/register">
@@ -52,6 +52,7 @@ export const App: React.FC = () => {
         </Route>
 
         <PrivateRoute path="/dashboard">
+          {user === null && <Redirect to="/login" />}
           <DashboardPage />
         </PrivateRoute>
         <PrivateRoute path="/settings">

@@ -1,0 +1,12 @@
+.HomePage {
+  &HeroScreen {
+    width: 100%;
+    max-width: 563px;
+    border-radius: 20px;
+  }
+
+  &CtaButton {
+    display: block;
+    margin: 0 auto;
+  }
+}

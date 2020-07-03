@@ -24,14 +24,16 @@ export const HomePage = () => {
         </ul>
 
         <Link to="/register">
-          <Button className="HomePageCtaButton my-4">Start now</Button>
+          <Button size="lg" className="HomePageCtaButton my-4">
+            Start now
+          </Button>
         </Link>
 
         <img src={homeScreen} className="HomePageHeroScreen my-4" />
       </section>
 
       <section id="benefits">
-        <h3 className="text-center my-4">Perks 😎</h3>
+        <h3 className="text-center my-4 mb-3">Perks 😎</h3>
 
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
@@ -82,7 +84,9 @@ export const HomePage = () => {
         </ul>
 
         <Link to="/register">
-          <Button className="HomePageCtaButton my-4">Start now</Button>
+          <Button size="lg" className="HomePageCtaButton my-4">
+            Start now
+          </Button>
         </Link>
       </section>
     </HomeLayoutPage>

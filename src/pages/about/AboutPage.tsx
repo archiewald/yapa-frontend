@@ -23,12 +23,12 @@ export const AboutPage = () => (
         </a>
       </li>
       <li>
-        laptop photo by{" "}
-        <a href="https://unsplash.com/@glenncarstenspeters?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
-          Glenn Carstens-Peters
+        pomodoros photo by{" "}
+        <a href="https://unsplash.com/@galex?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+          Alex Ghizila
         </a>{" "}
         on{" "}
-        <a href="https://unsplash.com/s/photos/work-laptop?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+        <a href="https://unsplash.com/s/photos/tomato?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
           Unsplash
         </a>
       </li>

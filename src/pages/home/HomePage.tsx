@@ -16,10 +16,10 @@ export const HomePage = () => {
           Keep your workflow <br /> focused 💡 <br /> and healthy 💪
         </h2>
 
-        <p>Working a lot on your laptop 💻?</p>
+        <p>Working a lot with a laptop 💻?</p>
 
         <ul>
-          <li>Boost your productivity with a Pomodoro Technique 🍅</li>
+          <li>Boost your productivity with the Pomodoro Technique 🍅</li>
           <li>Stay active during breaks!</li>
         </ul>
 

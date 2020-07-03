@@ -27,7 +27,7 @@ export const HomePage = () => {
           <Button className="HomePageCtaButton my-4">Start now</Button>
         </Link>
 
-        <img src={homeScreen} className="HomePageHeroScreen" />
+        <img src={homeScreen} className="HomePageHeroScreen my-4" />
       </section>
 
       <section id="benefits">
@@ -46,15 +46,8 @@ export const HomePage = () => {
           </li>
 
           <li className="list-group-item">
-            <a
-              href="https://en.wikipedia.org/wiki/Repetitive_strain_injury"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Repetitive Strain Injury
-            </a>{" "}
-            is a thing 😨! Staring at a screen strains your eyes 👀. Use regular
-            breaks to keep your body healthy 💪
+            Repetitive Strain Injury is a thing 😨! Staring at a screen strains
+            your eyes 👀. Use regular breaks to keep your body healthy 💪
           </li>
 
           <li className="list-group-item">

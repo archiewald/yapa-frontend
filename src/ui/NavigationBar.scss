@@ -1,3 +1,14 @@
 .NavigationBar {
   min-height: 56px;
+
+  &Title {
+    // https://talkingweb.co.uk/blog/how-the-bbc-hide-their-h1-tag
+    position: absolute;
+    display: block;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    font-size: 2px;
+    overflow: hidden;
+  }
 }

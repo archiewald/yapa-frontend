@@ -50,6 +50,10 @@ export const NavigationBar: React.FC = () => {
   return (
     <Navbar variant="dark" bg="dark" className="NavigationBar">
       <Nav className="mr-auto">
+        <h1 className="NavigationBarTitle">
+          The best pomodoro timer app on Windows MacOS Linux. Work or study with
+          Pomodoro Technique.
+        </h1>
         <ul className="navbar-nav flex-wrap">
           {renderNavItem({ route: "/", name: "🍅 Yapa" })}
           {user && NAVIGATION_ITEMS_PRIVATE.map(renderNavItem)}

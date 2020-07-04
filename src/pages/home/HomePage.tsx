@@ -47,7 +47,11 @@ export const HomePage = () => {
               </Button>
             </Link>
 
-            <img src={homeScreen} className="HomePageHeroScreen my-4" />
+            <img
+              src={homeScreen}
+              alt="Yapa pomodoro app screen"
+              className="HomePageHeroScreen my-4"
+            />
           </div>
         </div>
       </section>

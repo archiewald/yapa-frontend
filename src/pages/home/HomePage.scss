@@ -1,12 +1,48 @@
+@import "~styles/mixins";
+
 .HomePage {
+  &HeroTitle {
+    text-align: center;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 45px;
+      text-align: left;
+    }
+  }
+
   &HeroScreen {
+    display: block;
     width: 100%;
     max-width: 563px;
     border-radius: 20px;
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
+
+  &HeroDescription {
+    @include media-breakpoint-up(lg) {
+      font-size: 20px;
+    }
   }
 
   &CtaButton {
     display: block;
     margin: 0 auto;
+  }
+
+  &SectionTitle {
+    text-align: center;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 36px;
+    }
+  }
+
+  &PerksList {
+    @include media-breakpoint-up(lg) {
+      font-size: 18px;
+    }
   }
 }

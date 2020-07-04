@@ -50,7 +50,7 @@ export const NavigationBar: React.FC = () => {
   return (
     <Navbar variant="dark" bg="dark" className="NavigationBar">
       <Nav className="mr-auto">
-        <ul className="navbar-nav">
+        <ul className="navbar-nav flex-wrap">
           {renderNavItem({ route: "/", name: "🍅 Yapa" })}
           {user && NAVIGATION_ITEMS_PRIVATE.map(renderNavItem)}
           {user === null && NAVIGATION_ITEMS_PUBLIC.map(renderNavItem)}

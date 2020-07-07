@@ -121,62 +121,65 @@ export const HomePage = () => {
       </section>
 
       <section className="mb-lg-4">
-        <h3 className="HomePageSectionTitle mt-4 mb-4">About me 🐱‍👤</h3>
+        <h3 className="HomePageSectionTitle mt-4 mb-4">About me 😺</h3>
         <div className="row justify-content-lg-center">
-          <div className="col col-lg-10 row">
-            <div className="col-12 col-lg-4">
-              <img
-                src={archie}
-                alt="Archie face"
-                className="HomePageArchie mb-4 mb-lg-0"
-              />
-            </div>
+          <div className="col col-lg-10">
+            <div className="row">
+              <div className="col-12 col-lg-4">
+                <img
+                  src={archie}
+                  alt="Archie face"
+                  className="HomePageArchie mb-4 mb-lg-0"
+                />
+              </div>
 
-            <div className="col-12 col-lg-8 mt-lg-3">
-              <p>
-                My name is Artur and I hope you will find this little app
-                helpful!
-              </p>
-              <p>
-                I enjoy creating interactive web applications with TypeScript.
-                When I find some time I share my experiences on my tech blog{" "}
-                <a
-                  href="https://www.kozubek.dev/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  kozubek.dev
-                </a>
-                .
-              </p>
-              <p>
-                Mail me <a href="mailto:artur@kozubek.dev">artur@kozubek.dev</a>{" "}
-                to talk about the app or anything else. You can find me on{" "}
-                <a
-                  href="https://www.facebook.com/artur.kozubek1"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  facebook
-                </a>{" "}
-                and{" "}
-                <a
-                  href="https://www.linkedin.com/in/arturkozubek/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  linkedin
-                </a>{" "}
-                and{" "}
-                <a
-                  href="https://github.com/archiewald"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  github
-                </a>{" "}
-                as well.
-              </p>
+              <div className="col-12 col-lg-8 mt-lg-3">
+                <p>
+                  My name is Artur and I hope you will find this little app
+                  helpful!
+                </p>
+                <p>
+                  I enjoy creating interactive web applications with TypeScript.
+                  When I find some time I share my experiences on my tech blog{" "}
+                  <a
+                    href="https://www.kozubek.dev/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    kozubek.dev
+                  </a>
+                  .
+                </p>
+                <p>
+                  Mail me{" "}
+                  <a href="mailto:artur@kozubek.dev">artur@kozubek.dev</a> to
+                  talk about the app or anything else. You can find me on{" "}
+                  <a
+                    href="https://www.facebook.com/artur.kozubek1"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    facebook
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://www.linkedin.com/in/arturkozubek/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    linkedin
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://github.com/archiewald"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    github
+                  </a>{" "}
+                  as well.
+                </p>
+              </div>
             </div>
           </div>
         </div>

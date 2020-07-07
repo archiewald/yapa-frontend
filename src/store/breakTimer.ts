@@ -19,13 +19,13 @@ const BREAK_TASKS_COUNTER_STORAGE_KEY = "breakTasksCounter";
 
 const BREAK_TASKS: string[] = [
   "Have some water",
-  "Walk for a while",
   "Tightly close your eyes for 15s",
   "Lean back at your seat and relax",
+  "Walk for a while",
   "Roll your eyes a few times to each side for 15s",
-  "Rotate your eyes in clockwise direction for 15s",
   "Rotate your eyes in counterclockwise direction for 15s",
   "Have some water",
+  "Rotate your eyes in clockwise direction for 15s",
   "Blink your eyes for 10s",
   "Focus on a point in the far distance for 15s",
   "Have some water",

@@ -51,10 +51,10 @@ export const App: React.FC = () => {
           <ConfirmEmailPage />
         </Route>
 
-        <PrivateRoute path="/dashboard">
+        <Route path="/dashboard">
           {user === null && <Redirect to="/login" />}
-          <DashboardPage />
-        </PrivateRoute>
+          {user && <DashboardPage />}
+        </Route>
         <PrivateRoute path="/settings">
           <SettingsPage />
         </PrivateRoute>

@@ -11,20 +11,28 @@ import {
   CookiesBannerState,
   CookiesBannerModule,
 } from "./cookiesBanner";
+import {
+  BreakTimerState,
+  BreakTimerEvents,
+  BreakTimerModule,
+} from "./breakTimer";
 
 export type AppEvents = TimerEvents &
   LoaderEvents &
   UserEvents &
   TagsEvents &
   PomodorosEvents &
-  CookiesBannerEvents;
+  CookiesBannerEvents &
+  BreakTimerEvents;
+
 export interface AppState
   extends TimerState,
     LoaderState,
     UserState,
     TagsState,
     PomodorosState,
-    CookiesBannerState {}
+    CookiesBannerState,
+    BreakTimerState {}
 
 export const store = createStoreon<AppState, AppEvents>([
   UserModule,
@@ -33,5 +41,6 @@ export const store = createStoreon<AppState, AppEvents>([
   TagsModule,
   PomodorosModule,
   CookiesBannerModule,
+  BreakTimerModule,
   process.env.NODE_ENV !== "production" && storeonDevtools,
 ]);

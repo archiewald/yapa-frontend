@@ -11,18 +11,16 @@ import { TagsSelector } from "./TagsSelector";
 import "./DashboardPage.scss";
 import { StartButton } from "./StartButton";
 import { PauseIcon, PlayIcon, StopIcon } from "./Icons";
+import { BreakTaskBanner } from "./BreakTaskBanner";
 
 export const DashboardPage: React.FC = () => {
   const {
-    timer: { counter, selectedTagsIds, mode, interval, isPaused },
+    timer: { counter, selectedTagsIds, isPaused },
+    breakTimer,
     tags = [],
     pomodoros,
     dispatch,
-  } = useStore("timer", "tags", "pomodoros");
-
-  useEffect(() => {
-    dispatch("timerInit");
-  }, []);
+  } = useStore("timer", "tags", "pomodoros", "breakTimer");
 
   const today = new Date();
   const todayPomodoros = pomodoros.filter(({ startDate }) =>
@@ -31,6 +29,13 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <AppPage>
+      {breakTimer.isPresent && (
+        <BreakTaskBanner
+          taskName={breakTimer.taskName}
+          onDismiss={() => dispatch("breakTimerDismiss")}
+        />
+      )}
+
       <div className="row mb-4">
         <div className="col">
           <StartButton mode="pomodoro">Pomodoro</StartButton>

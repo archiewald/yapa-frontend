@@ -76,7 +76,7 @@ export const HomePage = () => {
               <li className="list-group-item">
                 Repetitive Strain Injury is a thing 😨! Staring at a screen
                 strains your eyes 👀. Use regular breaks to keep your body
-                healthy 💪
+                healthy 💪. Yapa will remind you to do some simple exercises.
               </li>
 
               <li className="list-group-item">
@@ -85,8 +85,8 @@ export const HomePage = () => {
               </li>
 
               <li className="list-group-item">
-                Yapa is a Progressive Web App 🤓! Add Yapa as a standalone app
-                on Windows/MacOS/Linux to keep it at hand.
+                Yapa is a Progressive Web App (PWA) 🤓! Add Yapa as a standalone
+                app on Windows/MacOS/Linux to keep it at hand.
               </li>
 
               <li className="list-group-item">

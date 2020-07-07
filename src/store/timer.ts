@@ -71,6 +71,8 @@ export const TimerModule: StoreonModule<TimerState & UserState, AppEvents> = (
       notifyTimerFinished(mode);
 
       if (timer.mode === "pomodoro") {
+        store.dispatch("breakTimerShow");
+
         store.dispatch("pomodorosCreate", {
           startDate: startTime!.toISOString(),
           duration: getModeDuration(user!, "pomodoro"),

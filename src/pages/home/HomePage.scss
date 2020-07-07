@@ -21,6 +21,18 @@
     }
   }
 
+  &Archie {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    border-radius: 100%;
+
+    margin: {
+      left: auto;
+      right: auto;
+    }
+  }
+
   &HeroDescription {
     @include media-breakpoint-up(lg) {
       font-size: 20px;

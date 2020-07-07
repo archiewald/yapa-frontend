@@ -181,6 +181,12 @@ export const HomePage = () => {
           </div>
         </div>
       </section>
+      <section>
+        <h1 className="HomePageTitle mt-5">
+          Yapa - the best pomodoro timer app on Windows, MacOS, Linux. Work or
+          study with Pomodoro Technique.
+        </h1>
+      </section>
     </HomeLayoutPage>
   );
 };

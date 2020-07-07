@@ -12,6 +12,7 @@ export interface UserEvents {
   userSave: User | null;
   userGetWithTags: undefined;
   userClear: undefined;
+  userInitOthers: undefined;
   userSaveTemp: User;
 }
 
@@ -28,10 +29,14 @@ export const UserModule: StoreonModule<UserState, AppEvents> = (store) => {
     initialLoader.style.display = "none";
 
     if (user) {
-      store.dispatch("tagsGet");
-      store.dispatch("pomodorosGet");
-      store.dispatch("timerInit");
+      store.dispatch("userInitOthers");
     }
+  });
+
+  store.on("userInitOthers", () => {
+    store.dispatch("tagsGet");
+    store.dispatch("pomodorosGet");
+    store.dispatch("timerInit");
   });
 
   store.on("userClear", () => ({

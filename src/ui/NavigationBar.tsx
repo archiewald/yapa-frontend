@@ -13,12 +13,20 @@ export interface NavigationItem {
 
 const NAVIGATION_ITEMS_PUBLIC: NavigationItem[] = [
   {
+    route: "/",
+    name: "🍅 Yapa",
+  },
+  {
     route: "/login",
     name: "Login",
   },
   {
     route: "/register",
     name: "Sign up",
+  },
+  {
+    route: "/about",
+    name: "About",
   },
 ];
 
@@ -35,12 +43,13 @@ const NAVIGATION_ITEMS_PRIVATE: NavigationItem[] = [
     route: "/pomodoros",
     name: "Pomodoros",
   },
-];
-
-const NAVIGATION_ITEMS_COMMON: NavigationItem[] = [
   {
     route: "/about",
     name: "About",
+  },
+  {
+    route: "/",
+    name: "Home",
   },
 ];
 
@@ -51,10 +60,8 @@ export const NavigationBar: React.FC = () => {
     <Navbar variant="dark" bg="dark" className="NavigationBar">
       <Nav className="mr-auto">
         <ul className="navbar-nav flex-wrap">
-          {renderNavItem({ route: "/", name: "🍅 Yapa" })}
           {user && NAVIGATION_ITEMS_PRIVATE.map(renderNavItem)}
           {user === null && NAVIGATION_ITEMS_PUBLIC.map(renderNavItem)}
-          {NAVIGATION_ITEMS_COMMON.map(renderNavItem)}
         </ul>
       </Nav>
     </Navbar>

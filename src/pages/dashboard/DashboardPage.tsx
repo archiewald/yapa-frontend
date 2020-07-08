@@ -108,7 +108,7 @@ export const DashboardPage: React.FC = () => {
       <DaySummaryCard title="Today" pomodoros={todayPomodoros} />
 
       {tags.length === 0 && (
-        <p>
+        <p className="mt-3 mb-0">
           You can create tags to categorize your pomodoros in{" "}
           <Link to={"/settings"}>settings</Link>
         </p>

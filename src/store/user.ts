@@ -25,12 +25,13 @@ export const UserModule: StoreonModule<UserState, AppEvents> = (store) => {
     const user = await api.getUser();
 
     store.dispatch("userSave", user ? user : null);
-    const initialLoader = document.getElementById("initial-loader")!;
-    initialLoader.style.display = "none";
 
     if (user) {
       store.dispatch("userInitOthers");
     }
+
+    const initialLoader = document.getElementById("initial-loader")!;
+    initialLoader.style.display = "none";
   });
 
   store.on("userInitOthers", () => {

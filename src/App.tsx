@@ -1,5 +1,11 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  Switch,
+  Route,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 
 import { DashboardPage } from "pages/dashboard/DashboardPage";
 import { SettingsPage } from "pages/settings/SettingsPage";
@@ -24,6 +30,17 @@ export const App: React.FC = () => {
     "areCookiesAccepted",
     "user"
   );
+
+  const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (user) {
+      if (location.pathname === "/") {
+        history.push("/dashboard");
+      }
+    }
+  }, [user]);
 
   return (
     <>

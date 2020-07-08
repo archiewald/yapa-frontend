@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, BrowserRouter, Redirect } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import ReactGA from "react-ga";
 
 import { DashboardPage } from "pages/dashboard/DashboardPage";
 import { SettingsPage } from "pages/settings/SettingsPage";
@@ -18,7 +20,17 @@ import { PrivateRoute } from "utils/router/PrivateRoute";
 import { useStore } from "store/useStore";
 import { CookiesBanner } from "ui/CookiesBanner";
 
+const history = createBrowserHistory();
+history.listen((location) => {
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname);
+});
+
 export const App: React.FC = () => {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  }, []);
+
   const { isLoading, user, areCookiesAccepted, dispatch } = useStore(
     "isLoading",
     "areCookiesAccepted",

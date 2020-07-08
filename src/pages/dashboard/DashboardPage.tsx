@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { isSameDay } from "date-fns";
 import Button from "react-bootstrap/Button";
 

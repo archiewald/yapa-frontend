@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks*/
+
 import React, { useEffect } from "react";
 import ReactGA, { FieldsObject } from "react-ga";
 import { RouteComponentProps } from "react-router-dom";

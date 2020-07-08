@@ -56,7 +56,8 @@ export const RegisterPage: React.FC = () => {
             await api.register(email, password);
             setAlerts([
               {
-                message: "Check your email to confirm registration process",
+                message:
+                  "Check your email to confirm registration process. If not in the main box, please check other folders/spam",
                 style: "success",
               },
             ]);

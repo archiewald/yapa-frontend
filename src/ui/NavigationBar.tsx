@@ -33,7 +33,7 @@ const NAVIGATION_ITEMS_PUBLIC: NavigationItem[] = [
 const NAVIGATION_ITEMS_PRIVATE: NavigationItem[] = [
   {
     route: "/dashboard",
-    name: "Dashboard",
+    name: "🍅 Dashboard",
   },
   {
     route: "/settings",

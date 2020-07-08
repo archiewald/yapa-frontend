@@ -158,20 +158,29 @@ export const SettingsPage: React.FC = () => {
 
       <hr />
 
-      <Button
-        className="mr-3"
-        onClick={() => {
-          askPermission();
-        }}
-      >
-        Request notifications permission
-      </Button>
+      {Notification.permission === "granted" ? (
+        <p>
+          You granted Yapa with notification permission. Thank you! You can test
+          if they work by clicking <strong>Test notifications</strong> below. If
+          you have problems seeing them, check if you enabled notifications for
+          your browser in system settings.
+        </p>
+      ) : (
+        <Button
+          className="mr-3"
+          onClick={() => {
+            askPermission();
+          }}
+        >
+          Request notifications permission
+        </Button>
+      )}
       <Button
         onClick={() => {
           showNotification("TEST");
         }}
       >
-        Test notification
+        Test notifications
       </Button>
 
       <hr />

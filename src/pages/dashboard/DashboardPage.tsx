@@ -12,6 +12,7 @@ import "./DashboardPage.scss";
 import { StartButton } from "./StartButton";
 import { PauseIcon, PlayIcon, StopIcon } from "./Icons";
 import { BreakTaskBanner } from "./BreakTaskBanner";
+import { Link } from "react-router-dom";
 
 export const DashboardPage: React.FC = () => {
   const {
@@ -105,6 +106,13 @@ export const DashboardPage: React.FC = () => {
       />
 
       <DaySummaryCard title="Today" pomodoros={todayPomodoros} />
+
+      {tags.length === 0 && (
+        <p>
+          You can create tags to categorize your pomodoros in{" "}
+          <Link to={"/settings"}>settings</Link>
+        </p>
+      )}
     </AppPage>
   );
 };

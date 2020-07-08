@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReactGA from "react-ga";
+import { Route } from "react-router-dom";
 
 import { store } from "./store";
 
@@ -8,14 +8,15 @@ import * as serviceWorker from "./serviceWorker";
 import "./styles/index.scss";
 import { StoreContext } from "storeon/react";
 import { App } from "./App";
-
-if (process.env.NODE_ENV === "production") {
-  ReactGA.initialize("UA-130671604-3");
-}
+import { WithTracker } from "utils/WithTracker";
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <App />
+    {process.env.NODE_ENV === "production" ? (
+      <Route component={WithTracker(App)} />
+    ) : (
+      <App />
+    )}
   </StoreContext.Provider>,
   document.getElementById("root")
 );

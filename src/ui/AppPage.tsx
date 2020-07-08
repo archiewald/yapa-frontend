@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { isMobile, isSafari } from "react-device-detect";
 
 import { useStore } from "store/useStore";
 import { askPermission } from "notifications/utils";
 
 import { NavigationBar } from "./NavigationBar";
 import { NotificationsBanner } from "./NotificationsBanner";
+import { DevicesBanner } from "./DevicesBanner";
 
 export const AppPage: React.FC = ({ children }) => {
   const { user } = useStore("user");
@@ -29,6 +31,8 @@ export const AppPage: React.FC = ({ children }) => {
           }}
         />
       )}
+      {(isMobile || isSafari) && <DevicesBanner />}
+
       <div className="container my-3">
         <div className="row justify-content-md-center">
           <div className="col col-md-8">

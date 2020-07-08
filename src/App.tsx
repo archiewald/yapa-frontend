@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, BrowserRouter, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import { DashboardPage } from "pages/dashboard/DashboardPage";
 import { SettingsPage } from "pages/settings/SettingsPage";
@@ -26,7 +26,7 @@ export const App: React.FC = () => {
   );
 
   return (
-    <BrowserRouter>
+    <>
       {isLoading && <Loader />}
       {!areCookiesAccepted && (
         <CookiesBanner
@@ -77,6 +77,6 @@ export const App: React.FC = () => {
           <NotFoundPage />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </>
   );
 };

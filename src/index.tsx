@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Route } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 
 import { store } from "./store";
 
@@ -12,11 +12,13 @@ import { WithTracker } from "utils/WithTracker";
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    {process.env.NODE_ENV === "production" ? (
-      <Route component={WithTracker(App)} />
-    ) : (
-      <App />
-    )}
+    <BrowserRouter>
+      {process.env.NODE_ENV === "production" ? (
+        <Route component={WithTracker(App)} />
+      ) : (
+        <App />
+      )}
+    </BrowserRouter>
   </StoreContext.Provider>,
   document.getElementById("root")
 );

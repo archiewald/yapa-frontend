@@ -31,7 +31,7 @@ export const AppPage: React.FC = ({ children }) => {
           }}
         />
       )}
-      {(isMobile || isSafari) && <DevicesBanner />}
+      {user && (isMobile || isSafari) && <DevicesBanner />}
 
       <div className="container my-3">
         <div className="row justify-content-md-center">

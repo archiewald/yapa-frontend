@@ -28,6 +28,10 @@ export const LoginPage: React.FC = () => {
   return (
     <AppPage>
       <h2>Login</h2>
+      <p className="mt-3">
+        You can encounter bugs on mobile devices or Safari browser 🙈🙊🙉 Until
+        I fix them, better use Chrome/Brave/Firefox on your laptop.
+      </p>
       <AlertList alerts={alerts} />
       <Formik
         validationSchema={LoginSchema}
